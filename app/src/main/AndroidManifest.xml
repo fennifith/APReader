@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="james.apreader">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER_HINTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:name="james.apreader.Supplier"
+        android:label="@string/app_name"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:largeHeap="true"
+        android:theme="@style/AppTheme" >
+
+        <activity
+            android:name="james.apreader.activities.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="james.apreader.activities.MainActivity"/>
+
+        <activity
+            android:name="james.apreader.activities.WallActivity"
+            android:parentActivityName="james.apreader.activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="james.apreader.activities.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="james.apreader.activities.SearchActivity"
+            android:label="@string/title_search"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:parentActivityName="james.apreader.activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="james.apreader.activities.MainActivity" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+                <action android:name="android.intent.action.VIEW"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="james.apreader.activities.AboutActivity"
+            android:label="@string/title_about"
+            android:parentActivityName="james.apreader.activities.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="james.apreader.activities.MainActivity" />
+        </activity>
+    </application>
+
+</manifest>

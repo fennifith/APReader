@@ -1,0 +1,74 @@
+<resources>
+    <string name="app_name">APReader</string>
+    <string name="app_desc">A client for quick access to Android Police posts.</string>
+
+    <!-- Activity/fragment/drawer item names -->
+    <string name="title_home">Home</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="title_about">About</string>
+    <string name="title_search">Search</string>
+    <string name="title_articles">Articles</string>
+
+    <string name="action_view">View</string>
+    <string name="action_view_in_browser">View in Browser</string>
+    <string name="action_favorite">Favorite</string>
+    <string name="action_unfavorite">Unfavorite</string>
+    <string name="action_fullscreen">Fullscreen</string>
+    <string name="action_comments">Comments</string>
+    <string name="action_share">Share</string>
+    <string name="action_download">Download</string>
+    <string name="action_apply">Apply</string>
+    <string name="action_github">GitHub</string>
+
+    <string name="section_latest">Recent</string>
+    <string name="section_all">All</string>
+
+    <string name="fetching_resources">Fetching Resources…</string>
+
+    <!-- Toast messages -->
+    <string name="download_failed">Download failed ( ͡° ʖ̯ ͡°)</string>
+    <string name="error">Something went wrong :(</string>
+
+    <!-- Dialogs -->
+    <string name="credit_required">Credit Required</string>
+    <string name="credit_required_msg">The author has requested that credit be provided for this wallpaper. Please be considerate when sharing to external sources.</string>
+    <string name="download_complete">Download Complete</string>
+    <string name="download_complete_msg">Your wallpaper has been downloaded.</string>
+
+
+    <!-- Specify whether to show the contributors in the about section -->
+    <bool name="show_contributors">true</bool>
+
+    <string name="contributors">Sources:</string>
+
+    <string-array name="people_wps">
+        <item>http://feeds.feedburner.com/AndroidPolice</item>
+    </string-array>
+
+    <string name="me">Disclaimer: This app is not an official Android Police client. It was made by a follower of Android Police for faster access to their articles than viewing the website.</string>
+    <string name="alex">Special thanks to Alexandre Piveteau for providing the code used for the page indicators.</string>
+
+    <!-- Don't edit these, credit is needed for the libraries -->
+    <string name="libraries">Implemented Libraries:</string>
+    <string name="action_homepage">Homepage</string>
+    <string name="empty">Nothing here...</string>
+
+    <array name="namey" formatted="false">
+        <item>MaterialDrawer - Mike Penz</item>
+        <item>Glide - Bumptech</item>
+        <item>Jsoup - Jonathan Hedley</item>
+    </array>
+
+    <array name="desc" formatted="false">
+        <item>The MaterialDrawer library aims to provide the easiest possible implementation of a navigation drawer for your application.</item>
+        <item>An image loading and caching library for Android focused on smooth scrolling.</item>
+        <item>A Java HTML parser that makes sense of real-world HTML soup.</item>
+    </array>
+
+    <string-array name="uri" formatted="false">
+        <item>https://github.com/mikepenz/MaterialDrawer</item>
+        <item>https://github.com/bumptech/glide</item>
+        <item>https://github.com/jhy/jsoup</item>
+    </string-array>
+
+</resources>
