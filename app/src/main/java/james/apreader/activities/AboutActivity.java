@@ -13,9 +13,9 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 
 import james.apreader.R;
-import james.apreader.Supplier;
 import james.apreader.adapters.AboutAdapter;
-import james.apreader.data.AuthorData;
+import james.apreader.common.Supplier;
+import james.apreader.common.data.AuthorData;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -46,7 +46,8 @@ public class AboutActivity extends AppCompatActivity {
             }
         }
 
-        items.addAll(((Supplier) getApplicationContext()).getAdditionalInfo());
+        items.add(new AboutAdapter.HeaderItem(this, null, getString(R.string.me), true, null));
+        items.add(new AboutAdapter.HeaderItem(this, null, getResources().getString(R.string.alex), true, "https://github.com/cadialex"));
 
         String[] headers = getResources().getStringArray(R.array.namey);
         String[] contents = getResources().getStringArray(R.array.desc);

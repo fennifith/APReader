@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import james.apreader.utils.ImageUtils;
+import james.apreader.common.utils.ImageUtils;
 
 public class CustomImageView extends AppCompatImageView {
 

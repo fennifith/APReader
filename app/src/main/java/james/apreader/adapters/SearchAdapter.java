@@ -14,11 +14,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import james.apreader.R;
-import james.apreader.Supplier;
 import james.apreader.activities.MainActivity;
 import james.apreader.activities.WallActivity;
-import james.apreader.data.AuthorData;
-import james.apreader.data.WallData;
+import james.apreader.common.Supplier;
+import james.apreader.common.data.AuthorData;
+import james.apreader.common.data.WallData;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
 

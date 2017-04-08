@@ -41,10 +41,6 @@
 
     <string name="contributors">Sources:</string>
 
-    <string-array name="people_wps">
-        <item>http://feeds.feedburner.com/AndroidPolice</item>
-    </string-array>
-
     <string name="me">Disclaimer: This app is not an official Android Police client. It was made by a follower of Android Police for faster access to their articles than viewing the website.</string>
     <string name="alex">Special thanks to Alexandre Piveteau for providing the code used for the page indicators.</string>
 

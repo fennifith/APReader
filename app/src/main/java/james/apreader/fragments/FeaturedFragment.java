@@ -19,9 +19,9 @@ import java.util.Date;
 import java.util.Locale;
 
 import james.apreader.R;
-import james.apreader.Supplier;
 import james.apreader.adapters.ListAdapter;
-import james.apreader.data.WallData;
+import james.apreader.common.Supplier;
+import james.apreader.common.data.WallData;
 
 public class FeaturedFragment extends Fragment {
 

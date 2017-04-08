@@ -21,10 +21,10 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import james.apreader.R;
-import james.apreader.Supplier;
 import james.apreader.activities.WallActivity;
-import james.apreader.data.WallData;
-import james.apreader.utils.ImageUtils;
+import james.apreader.common.Supplier;
+import james.apreader.common.data.WallData;
+import james.apreader.common.utils.ImageUtils;
 import james.apreader.views.CustomImageView;
 import james.apreader.views.SquareImageView;
 

@@ -8,7 +8,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-import james.apreader.data.WallData;
+import james.apreader.common.data.WallData;
 import james.apreader.views.CustomImageView;
 
 public class ImagePagerAdapter extends PagerAdapter {

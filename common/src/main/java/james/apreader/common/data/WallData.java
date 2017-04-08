@@ -1,4 +1,4 @@
-package james.apreader.data;
+package james.apreader.common.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;

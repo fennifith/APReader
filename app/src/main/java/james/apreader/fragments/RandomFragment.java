@@ -15,9 +15,9 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import james.apreader.R;
-import james.apreader.Supplier;
 import james.apreader.adapters.ListAdapter;
-import james.apreader.data.WallData;
+import james.apreader.common.Supplier;
+import james.apreader.common.data.WallData;
 
 public class RandomFragment extends Fragment {
 
@@ -29,7 +29,7 @@ public class RandomFragment extends Fragment {
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        recycler.setLayoutManager(new GridLayoutManager(getContext(), metrics.widthPixels > metrics.heightPixels ? 3 : 2));
+        recycler.setLayoutManager(new GridLayoutManager(getContext(), 1));
 
         ArrayList<WallData> walls = ((Supplier) getContext().getApplicationContext()).getWallpapers();
         Collections.sort(walls, new Comparator<WallData>() {

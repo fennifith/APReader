@@ -10,12 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import james.apreader.R;
-import james.apreader.Supplier;
 import james.apreader.adapters.ListAdapter;
-import james.apreader.data.WallData;
+import james.apreader.common.Supplier;
+import james.apreader.common.data.WallData;
 
 public class FavFragment extends Fragment {
 

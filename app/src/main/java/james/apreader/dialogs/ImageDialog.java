@@ -13,15 +13,16 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
 import james.apreader.R;
-import james.apreader.Supplier;
 import james.apreader.adapters.ImagePagerAdapter;
-import james.apreader.data.WallData;
+import james.apreader.common.Supplier;
+import james.apreader.common.data.WallData;
 import james.apreader.views.PageIndicator;
 
 public class ImageDialog extends AppCompatDialog {
@@ -124,12 +125,16 @@ public class ImageDialog extends AppCompatDialog {
 
         @Override
         public void onReceive(final Context context, Intent intent) {
-            ((Supplier) context.getApplicationContext()).getDownloadedDialog(context, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    context.startActivity(new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS));
-                }
-            }).show();
+            new AlertDialog.Builder(context.getApplicationContext())
+                    .setTitle(R.string.download_complete)
+                    .setMessage(R.string.download_complete_msg)
+                    .setPositiveButton("View", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            context.startActivity(new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS));
+                        }
+                    })
+                    .show();
 
             unregister();
         }

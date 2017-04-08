@@ -12,14 +12,13 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import james.apreader.R;
-import james.apreader.Supplier;
 import james.apreader.adapters.ListAdapter;
-import james.apreader.data.AuthorData;
-import james.apreader.data.WallData;
+import james.apreader.common.Supplier;
+import james.apreader.common.data.AuthorData;
+import james.apreader.common.data.WallData;
 
 public class ListFragment extends Fragment {
 
-    GridLayoutManager manager;
     ListAdapter adapter;
 
     @Override
@@ -37,16 +36,7 @@ public class ListFragment extends Fragment {
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        manager = new GridLayoutManager(getContext(), metrics.widthPixels > metrics.heightPixels ? 3 : 2);
-        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                if (position == 0 || adapter.getItemViewType(position) == 1)
-                    return manager.getSpanCount();
-                else return 1;
-            }
-        });
-        recycler.setLayoutManager(manager);
+        recycler.setLayoutManager(new GridLayoutManager(getContext(), 1));
 
         adapter = new ListAdapter(getActivity(), walls);
         adapter.setArtist(author.id);

@@ -25,7 +25,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import james.apreader.R;
-import james.apreader.utils.ConversionUtils;
+import james.apreader.common.utils.ConversionUtils;
 
 public class PageIndicator extends View implements ViewPager.OnPageChangeListener {
 

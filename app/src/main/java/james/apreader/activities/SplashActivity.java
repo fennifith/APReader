@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import james.apreader.R;
-import james.apreader.Supplier;
+import james.apreader.common.Supplier;
 
 public class SplashActivity extends AppCompatActivity {
 

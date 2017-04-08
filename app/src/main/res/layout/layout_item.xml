@@ -8,16 +8,9 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <ProgressBar
-            android:id="@+id/progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            style="?attr/progressBarStyle" />
-
         <james.apreader.views.SquareImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:id="@+id/image"
             android:scaleType="centerCrop" />
 
@@ -26,7 +19,8 @@
             android:layout_height="64dp"
             android:orientation="vertical"
             android:gravity="center_vertical"
-            android:layout_below="@id/image"
+            android:layout_toRightOf="@id/image"
+            android:layout_toEndOf="@id/image"
             android:paddingRight="16dp"
             android:paddingLeft="16dp">
 

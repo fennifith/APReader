@@ -23,8 +23,8 @@ import java.util.ArrayList;
 
 import james.apreader.BuildConfig;
 import james.apreader.R;
-import james.apreader.Supplier;
-import james.apreader.data.AuthorData;
+import james.apreader.common.Supplier;
+import james.apreader.common.data.AuthorData;
 import james.apreader.fragments.FavFragment;
 import james.apreader.fragments.HomeFragment;
 import james.apreader.fragments.ListFragment;
