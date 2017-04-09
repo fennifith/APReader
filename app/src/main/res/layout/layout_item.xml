@@ -3,55 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
         android:padding="16dp">
 
-        <james.apreader.views.SquareImageView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:id="@+id/image"
-            android:scaleType="centerCrop" />
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:orientation="vertical"
-            android:gravity="center_vertical"
-            android:layout_toRightOf="@id/image"
-            android:layout_toEndOf="@id/image"
-            android:paddingRight="16dp"
-            android:paddingLeft="16dp">
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textColor="@color/textColorPrimaryInverse"
+            android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/textColorPrimaryInverse"
-                android:id="@+id/title"
-                android:textSize="16sp"
-                android:maxLines="3"
-                android:ellipsize="end"/>
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/textColorSecondaryInverse"
+            android:textSize="14sp"
+            android:visibility="gone" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/textColorSecondaryInverse"
-                android:id="@+id/author"
-                android:textSize="14sp"
-                android:singleLine="true"
-                android:lines="1"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:visibility="gone"/>
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?attr/selectableItemBackground" />
+    </LinearLayout>
 
 </FrameLayout>

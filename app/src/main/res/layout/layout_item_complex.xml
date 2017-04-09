@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -10,64 +10,40 @@
         android:layout_margin="4dp"
         app:cardUseCompatPadding="true">
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:orientation="vertical"
+            android:padding="8dp">
 
-            <ProgressBar
-                android:id="@+id/progress"
+            <TextView
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                style="?attr/progressBarStyle" />
+                android:padding="4dp"
+                android:textColor="@color/textColorPrimaryInverse"
+                android:textSize="16sp" />
 
-            <james.apreader.views.RatioImageView
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:textColor="@color/textColorSecondaryInverse"
+                android:textSize="14sp" />
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/categories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/image"
-                android:scaleType="centerCrop" />
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                app:flexWrap="wrap"
+                app:justifyContent="flex_start" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="72dp"
-                android:orientation="vertical"
-                android:layout_below="@id/image"
-                android:gravity="center_vertical"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/textColorPrimaryInverse"
-                    android:textSize="16sp"
-                    android:id="@+id/title"
-                    android:singleLine="true"
-                    android:lines="1"
-                    android:maxLines="1"
-                    android:ellipsize="end" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/textColorSecondaryInverse"
-                    android:textSize="14sp"
-                    android:textStyle="italic"
-                    android:id="@+id/author"
-                    android:singleLine="true"
-                    android:lines="1"
-                    android:maxLines="1"
-                    android:ellipsize="end" />
-
-            </LinearLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/card"
-                android:background="?attr/selectableItemBackground" />
-
-        </RelativeLayout>
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 

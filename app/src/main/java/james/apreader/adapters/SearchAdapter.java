@@ -92,6 +92,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 }
             }
         });
+
+        holder.v.setAlpha(0);
+        holder.v.animate().alpha(1).start();
     }
 
     @Override
