@@ -41,13 +41,13 @@ public class AboutActivity extends AppCompatActivity {
 
         if (getResources().getBoolean(R.bool.show_contributors)) {
             items.add(new AboutAdapter.HeaderItem(this, getString(R.string.contributors), null, true, null));
-            for (AuthorData author : supplier.getAuthors()) {
-                items.add(new AboutAdapter.TextItem(this, author.name, author.description, author.url));
-            }
+
+            AuthorData author = supplier.getAuthor();
+            items.add(new AboutAdapter.TextItem(this, author.name, author.description, author.url));
         }
 
-        items.add(new AboutAdapter.HeaderItem(this, null, getString(R.string.me), true, null));
-        items.add(new AboutAdapter.HeaderItem(this, null, getResources().getString(R.string.alex), true, "https://github.com/cadialex"));
+        items.add(new AboutAdapter.HeaderItem(this, null, getString(R.string.me), false, null));
+        items.add(new AboutAdapter.HeaderItem(this, null, getResources().getString(R.string.alex), false, "https://github.com/alexandrepiveteau"));
 
         String[] headers = getResources().getStringArray(R.array.namey);
         String[] contents = getResources().getStringArray(R.array.desc);
@@ -73,7 +73,7 @@ public class AboutActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
+                finish();
                 break;
             case R.id.action_github:
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/TheAndroidMaster/APReader")));

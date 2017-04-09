@@ -11,7 +11,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
 
@@ -35,10 +34,10 @@ import james.apreader.common.utils.FontUtils;
 
 public class Supplier extends Application {
 
-    private String[] urls;
-    private int[] pages;
+    private String url;
+    private int pages;
 
-    private ArrayList<AuthorData> authors;
+    private AuthorData author;
     private ArrayList<WallData> wallpapers;
 
     private ArrayList<String> favWallpapers;
@@ -55,8 +54,7 @@ public class Supplier extends Application {
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         gson = new Gson();
 
-        urls = getResources().getStringArray(R.array.people_wps);
-        pages = new int[urls.length];
+        url = getString(R.string.feed_url);
 
         favWallpapers = new ArrayList<>();
 
@@ -72,26 +70,22 @@ public class Supplier extends Application {
         //yes, this is thread-safe
         //no, it is not needed for the current setup since all the resources are in res/values/strings.xml
 
-        authors = new ArrayList<>();
         wallpapers = new ArrayList<>();
 
-        for (int i = 0; i < urls.length; i++) {
-            try {
-                Document document = ElementUtils.getDocument(new URL(urls[i]));
-                if (document == null) continue;
+        try {
+            Document document = ElementUtils.getDocument(new URL(url));
+            if (document == null) return false;
 
-                AuthorData author = new AuthorData(document.title(), ElementUtils.getDescription(document), i, urls[i].substring(0, urls[i].length() - 5), urls[i]);
-                authors.add(author);
+            author = new AuthorData(document.title(), ElementUtils.getDescription(document), 0, url.substring(0, url.length() - 5), url);
 
-                Elements elements = document.select("item");
-                for (Element element : elements) {
-                    WallData data = new WallData(ElementUtils.getName(element), ElementUtils.getDescription(element), ElementUtils.getDate(element), ElementUtils.getLink(element), ElementUtils.getComments(element), ElementUtils.getImages(element), ElementUtils.getCategories(element), author.name, author.id);
-                    wallpapers.add(data);
-                }
-                // etc
-            } catch (IOException e) {
-                e.printStackTrace();
+            Elements elements = document.select("item");
+            for (Element element : elements) {
+                WallData data = new WallData(ElementUtils.getName(element), ElementUtils.getDescription(element), ElementUtils.getDate(element), ElementUtils.getLink(element), ElementUtils.getComments(element), ElementUtils.getImages(element), ElementUtils.getCategories(element), author.name, author.id);
+                wallpapers.add(data);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
 
         return true;
@@ -105,37 +99,16 @@ public class Supplier extends Application {
     }
 
     //get a list of the different sections
-    public ArrayList<AuthorData> getAuthors() {
-        return authors;
-    }
-
-    @Nullable
-    public AuthorData getAuthor(int id) {
-        if (id < 0 || id >= authors.size()) return null;
-        else return authors.get(id);
+    public AuthorData getAuthor() {
+        return author;
     }
 
     //get a list of the different wallpapers
     public ArrayList<WallData> getWallpapers() {
-        ArrayList<WallData> walls = new ArrayList<>();
-        walls.addAll(wallpapers);
-
-        return walls;
+        return new ArrayList<>(wallpapers);
     }
 
-    public ArrayList<WallData> getWallpapers(int authorId) {
-        ArrayList<WallData> walls = new ArrayList<>();
-
-        for (WallData wallpaper : wallpapers) {
-            if (wallpaper.authorId == authorId) walls.add(wallpaper);
-        }
-
-        return walls;
-    }
-
-    public void getWallpapers(final int id, final AsyncListener<ArrayList<WallData>> listener) {
-        if (id < 0 || id >= pages.length) return;
-
+    public void getWallpapers(final AsyncListener<ArrayList<WallData>> listener) {
         new Thread() {
             @Override
             public void run() {
@@ -143,7 +116,7 @@ public class Supplier extends Application {
 
                 Document document;
                 try {
-                    document = ElementUtils.getDocument(new URL(urls[id] + "?paged=" + String.valueOf(pages[id] + 2)));
+                    document = ElementUtils.getDocument(new URL(url + "?paged=" + String.valueOf(pages + 2)));
                 } catch (IOException e) {
                     e.printStackTrace();
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -167,12 +140,12 @@ public class Supplier extends Application {
 
                 Elements elements = document.select("item");
                 for (Element element : elements) {
-                    WallData data = new WallData(ElementUtils.getName(element), ElementUtils.getDescription(element), ElementUtils.getDate(element), ElementUtils.getLink(element), ElementUtils.getComments(element), ElementUtils.getImages(element), ElementUtils.getCategories(element), authors.get(id).name, id);
+                    WallData data = new WallData(ElementUtils.getName(element), ElementUtils.getDescription(element), ElementUtils.getDate(element), ElementUtils.getLink(element), ElementUtils.getComments(element), ElementUtils.getImages(element), ElementUtils.getCategories(element), author.name, 0);
                     walls.add(data);
                 }
 
                 wallpapers.addAll(walls);
-                pages[id]++;
+                pages++;
 
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override

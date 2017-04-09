@@ -1,8 +1,6 @@
 <resources>
 
-    <string-array name="people_wps">
-        <item>http://www.androidpolice.com/feed/</item>
-    </string-array>
+    <string name="feed_url">http://www.androidpolice.com/feed/</string>
 
     <string name="action_view_in_browser">View in Browser</string>
     <string name="action_favorite">Favorite</string>

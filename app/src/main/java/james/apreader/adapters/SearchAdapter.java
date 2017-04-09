@@ -2,9 +2,6 @@ package james.apreader.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Typeface;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +11,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import james.apreader.R;
-import james.apreader.activities.MainActivity;
 import james.apreader.activities.WallActivity;
 import james.apreader.common.Supplier;
-import james.apreader.common.data.AuthorData;
 import james.apreader.common.data.WallData;
 import james.apreader.common.utils.FontUtils;
 
@@ -25,7 +20,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     Activity activity;
     ArrayList<WallData> totalWalls, walls;
-    ArrayList<AuthorData> totalAuthors, authors;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public View v, title, subtitle, clicker, card;
@@ -45,9 +39,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
         this.activity = activity;
         totalWalls = supplier.getWallpapers();
-        totalAuthors = supplier.getAuthors();
         walls = new ArrayList<>();
-        authors = new ArrayList<>();
     }
 
     @Override
@@ -57,26 +49,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     }
 
     @Override
-    public int getItemViewType(int position) {
-        if (position < walls.size()) return 0;
-        else return 1;
-    }
-
-    @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         TextView title = (TextView) holder.title, subtitle = (TextView) holder.subtitle;
 
-        if (getItemViewType(position) == 0) {
-            title.setText(walls.get(position).name);
-            title.setTypeface(null, Typeface.NORMAL);
-            title.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(activity, R.color.textColorPrimaryInverse)));
-            subtitle.setText(walls.get(position).authorName);
-        } else {
-            title.setText(authors.get(position - walls.size()).name);
-            title.setTypeface(null, Typeface.BOLD);
-            title.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(activity, R.color.colorAccent)));
-            subtitle.setText(null);
-        }
+        title.setText(walls.get(position).name);
+        subtitle.setText(walls.get(position).authorName);
 
         FontUtils.applyTypeface(title);
         FontUtils.applyTypeface(subtitle);
@@ -85,15 +62,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         holder.clicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getItemViewType(holder.getAdapterPosition()) == 0) {
-                    Intent i = new Intent(activity, WallActivity.class);
-                    i.putExtra("wall", walls.get(holder.getAdapterPosition()));
-                    activity.startActivity(i);
-                } else {
-                    Intent i = new Intent(activity, MainActivity.class);
-                    i.putExtra("person", authors.get(holder.getAdapterPosition() - walls.size()));
-                    activity.startActivity(i);
-                }
+                Intent i = new Intent(activity, WallActivity.class);
+                i.putExtra("wall", walls.get(holder.getAdapterPosition()));
+                activity.startActivity(i);
             }
         });
 
@@ -103,23 +74,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return walls.size() + authors.size();
+        return walls.size();
     }
 
     public void filter(String filter) {
         walls.clear();
-        authors.clear();
 
         for (WallData data : totalWalls) {
             if (data.name.toLowerCase().contains(filter.toLowerCase()) || filter.toLowerCase().contains(data.name.toLowerCase()))
                 walls.add(data);
-        }
-
-        if (activity.getResources().getBoolean(R.bool.show_contributors)) {
-            for (AuthorData data : totalAuthors) {
-                if (data.name.toLowerCase().contains(filter.toLowerCase()) || filter.toLowerCase().contains(data.name.toLowerCase()))
-                    authors.add(data);
-            }
         }
 
         notifyDataSetChanged();

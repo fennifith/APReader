@@ -28,7 +28,6 @@ public class FavFragment extends Fragment {
 
         recycler.setLayoutManager(new GridLayoutManager(getContext(), 1));
         ListAdapter adapter = new ListAdapter(getActivity(), walls);
-        adapter.setLayoutMode(ListAdapter.LAYOUT_MODE_COMPLEX);
         recycler.setAdapter(adapter);
 
         if (walls.size() < 1) v.findViewById(R.id.empty).setVisibility(View.VISIBLE);

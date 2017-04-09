@@ -49,7 +49,6 @@ public class FeaturedFragment extends Fragment {
         });
 
         ListAdapter adapter = new ListAdapter(getActivity(), walls);
-        adapter.setLayoutMode(ListAdapter.LAYOUT_MODE_COMPLEX);
         recycler.setAdapter(adapter);
 
         return recycler;

@@ -19,9 +19,7 @@ import james.apreader.common.utils.FontUtils;
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private ArrayList<WallData> walls;
     private Activity activity;
-    private int layoutMode = -1;
     private Integer artistId;
-    public final static int LAYOUT_MODE_HORIZONTAL = 1, LAYOUT_MODE_COMPLEX = 2;
 
     private Supplier supplier;
 
@@ -29,10 +27,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         this.activity = activity;
         this.walls = walls;
         supplier = (Supplier) activity.getApplicationContext();
-    }
-
-    public void setLayoutMode(int mode) {
-        layoutMode = mode;
     }
 
     public void setArtist(int artistId) {
@@ -49,7 +43,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public ListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case 0:
-                return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(layoutMode == LAYOUT_MODE_COMPLEX ? R.layout.layout_item_complex : R.layout.layout_item, parent, false));
+                return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_complex, parent, false));
             default:
                 return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_progress, parent, false));
         }
@@ -74,31 +68,29 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     }
                 });
 
-                if (layoutMode == LAYOUT_MODE_COMPLEX) {
-                    holder.content.setText(article.desc.contains(".") ? article.desc.substring(0, article.desc.indexOf(".") + 1) : article.desc);
-                    FontUtils.applyTypeface(holder.content);
+                holder.content.setText(article.desc.contains(".") ? article.desc.substring(0, article.desc.indexOf(".") + 1) : article.desc);
+                FontUtils.applyTypeface(holder.content);
 
-                    if (article.categories.size() > 0) {
-                        holder.categories.setVisibility(View.VISIBLE);
-                        holder.categories.removeAllViewsInLayout();
+                if (article.categories.size() > 0) {
+                    holder.categories.setVisibility(View.VISIBLE);
+                    holder.categories.removeAllViewsInLayout();
 
-                        for (String category : article.categories) {
-                            View v = LayoutInflater.from(activity).inflate(R.layout.layout_category, holder.categories, false);
-                            TextView title = (TextView) v.findViewById(R.id.title);
-                            title.setText(category.toLowerCase());
-                            FontUtils.applyTypeface(title);
+                    for (String category : article.categories) {
+                        View v = LayoutInflater.from(activity).inflate(R.layout.layout_category, holder.categories, false);
+                        TextView title = (TextView) v.findViewById(R.id.title);
+                        title.setText(category.toLowerCase());
+                        FontUtils.applyTypeface(title);
 
-                            holder.categories.addView(v);
-                        }
-                    } else holder.categories.setVisibility(View.GONE);
-                }
+                        holder.categories.addView(v);
+                    }
+                } else holder.categories.setVisibility(View.GONE);
 
-                holder.v.setAlpha(0);
-                holder.v.animate().alpha(1).start();
+                holder.itemView.setAlpha(0);
+                holder.itemView.animate().alpha(1).start();
                 break;
             case 1:
                 if (artistId != null) {
-                    supplier.getWallpapers(artistId, new Supplier.AsyncListener<ArrayList<WallData>>() {
+                    supplier.getWallpapers(new Supplier.AsyncListener<ArrayList<WallData>>() {
 
                         @Override
                         public void onTaskComplete(ArrayList<WallData> value) {
@@ -125,14 +117,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private View v;
         private TextView title;
         private TextView content;
         private ViewGroup categories;
 
         public ViewHolder(View v) {
             super(v);
-            this.v = v;
             title = (TextView) v.findViewById(R.id.title);
             content = (TextView) v.findViewById(R.id.content);
             categories = (ViewGroup) v.findViewById(R.id.categories);

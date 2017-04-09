@@ -28,10 +28,10 @@ public class ListFragment extends Fragment {
 
         Supplier supplier = (Supplier) getContext().getApplicationContext();
 
-        AuthorData author = supplier.getAuthor(getArguments().getInt("authorId"));
+        AuthorData author = supplier.getAuthor();
         if (author == null) return null;
 
-        ArrayList<WallData> walls = supplier.getWallpapers(author.id);
+        ArrayList<WallData> walls = supplier.getWallpapers();
 
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);

@@ -113,7 +113,7 @@ public class WallActivity extends AppCompatActivity {
         findViewById(R.id.launchAuthor).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(supplier.getAuthors().get(data.authorId).url)));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(supplier.getAuthor().url)));
             }
         });
     }

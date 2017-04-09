@@ -70,7 +70,7 @@ public class ArticleAdapter extends WearableRecyclerView.Adapter<ArticleAdapter.
             holder.itemView.animate().alpha(1).start();
         } else {
             if (artistId != null) {
-                supplier.getWallpapers(artistId, new Supplier.AsyncListener<ArrayList<WallData>>() {
+                supplier.getWallpapers(new Supplier.AsyncListener<ArrayList<WallData>>() {
                     @Override
                     public void onTaskComplete(ArrayList<WallData> value) {
                         articles.addAll(value);

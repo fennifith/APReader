@@ -19,14 +19,10 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-import java.util.ArrayList;
-
 import james.apreader.BuildConfig;
 import james.apreader.R;
 import james.apreader.common.Supplier;
-import james.apreader.common.data.AuthorData;
 import james.apreader.fragments.FavFragment;
-import james.apreader.fragments.HomeFragment;
 import james.apreader.fragments.ListFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -52,14 +48,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.drawer_toggle);
 
-        ArrayList<AuthorData> authors = supplier.getAuthors();
-
-        IDrawerItem[] items = new IDrawerItem[authors.size()];
-
-        for (int i = 0; i < authors.size(); i++) {
-            items[i] = new SecondaryDrawerItem().withName(getString(R.string.title_articles)).withIdentifier(authors.get(i).id).withIcon(R.drawable.ic_inbox);
-        }
-
         drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withFullscreen(true)
@@ -76,40 +64,30 @@ public class MainActivity extends AppCompatActivity {
                         .addProfiles(new ProfileDrawerItem().withName(getResources().getString(R.string.app_name)).withEmail("Version " + BuildConfig.VERSION_NAME))
                         .build())
                 .addDrawerItems(
-                        new SecondaryDrawerItem().withName(getString(R.string.title_home)).withIdentifier(items.length + 1).withIcon(R.drawable.ic_home),
-                        new SecondaryDrawerItem().withName(getString(R.string.title_favorites)).withIdentifier(items.length + 2).withIcon(R.drawable.ic_fav)
+                        new SecondaryDrawerItem().withName(getString(R.string.title_articles)).withIdentifier(0).withIcon(R.drawable.ic_inbox),
+                        new SecondaryDrawerItem().withName(getString(R.string.title_favorites)).withIdentifier(1).withIcon(R.drawable.ic_fav)
                 )
-                .addDrawerItems(items)
                 .addDrawerItems(
-                        new SecondaryDrawerItem().withName(getString(R.string.title_about)).withIdentifier(items.length + 3).withSelectable(false).withIcon(R.drawable.ic_info)
+                        new SecondaryDrawerItem().withName(getString(R.string.title_about)).withIdentifier(2).withSelectable(false).withIcon(R.drawable.ic_info)
                 )
                 .withSelectedItem(0)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        int max = supplier.getAuthors().size(), id = (int) drawerItem.getIdentifier();
+                        int id = (int) drawerItem.getIdentifier();
 
-                        if (id > max) {
-                            switch (id - max) {
-                                case 1:
-                                    fragment = new HomeFragment();
-                                    toolbar.setTitle(getString(R.string.title_home));
-                                    break;
-                                case 2:
-                                    fragment = new FavFragment();
-                                    toolbar.setTitle(getString(R.string.title_favorites));
-                                    break;
-                                case 3:
-                                    startActivity(new Intent(MainActivity.this, AboutActivity.class));
-                                    break;
-                            }
-                        } else {
-                            Bundle args = new Bundle();
-                            args.putInt("authorId", id);
-                            fragment = new ListFragment();
-                            fragment.setArguments(args);
-
-                            toolbar.setTitle(supplier.getAuthors().get(id).name);
+                        switch ((int) drawerItem.getIdentifier()) {
+                            case 0:
+                                fragment = new ListFragment();
+                                toolbar.setTitle(getString(R.string.title_articles));
+                                break;
+                            case 1:
+                                fragment = new FavFragment();
+                                toolbar.setTitle(getString(R.string.title_favorites));
+                                break;
+                            case 2:
+                                startActivity(new Intent(MainActivity.this, AboutActivity.class));
+                                break;
                         }
 
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragment).commit();
@@ -134,17 +112,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        fragment = new HomeFragment();
+        toolbar.setTitle(R.string.title_articles);
+        fragment = new ListFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.fragment, fragment).commit();
     }
 
     private void setSelection(Fragment fragment) {
-        if (fragment instanceof HomeFragment) {
+        if (fragment instanceof ListFragment) {
             drawer.setSelection(-1);
         } else if (fragment instanceof FavFragment) {
             drawer.setSelection(-2);
-        } else if (fragment instanceof ListFragment) {
-            drawer.setSelection(fragment.getArguments().getInt("authorId", -1));
         }
     }
 
