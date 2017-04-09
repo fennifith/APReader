@@ -8,9 +8,11 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.wearable.view.drawer.WearableActionDrawer;
 import android.support.wearable.view.drawer.WearableDrawerLayout;
 import android.text.Html;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import james.apreader.R;
@@ -22,6 +24,7 @@ public class ArticleActivity extends Activity {
     public static final String EXTRA_ARTICLE = "james.apreader.EXTRA_ARTICLE";
 
     private WearableDrawerLayout drawerLayout;
+    private ProgressBar progressBar;
     private TextView content;
     private ImageView favoriteImage;
 
@@ -38,6 +41,7 @@ public class ArticleActivity extends Activity {
         drawerLayout = (WearableDrawerLayout) findViewById(R.id.drawerLayout);
         WearableActionDrawer actionDrawer = (WearableActionDrawer) findViewById(R.id.actionDrawer);
         NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.scrollView);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         TextView title = (TextView) findViewById(R.id.title);
         content = (TextView) findViewById(R.id.content);
         TextView date = (TextView) findViewById(R.id.date);
@@ -69,6 +73,24 @@ public class ArticleActivity extends Activity {
                 } else {
                     supplier.favoriteWallpaper(article);
                     favoriteImage.setImageResource(R.drawable.ic_favorite);
+                }
+            }
+        });
+
+        supplier.getFullContent(article, new Supplier.AsyncListener<String>() {
+            @Override
+            public void onTaskComplete(String value) {
+                if (content != null && progressBar != null) {
+                    content.setText(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? Html.fromHtml(value, 0) : Html.fromHtml(value));
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure() {
+                if (progressBar != null) {
+                    Log.e("ArticleActivity", "failed to load full content");
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });

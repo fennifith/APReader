@@ -18,36 +18,44 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
                 android:orientation="vertical"
-                android:paddingTop="8dp"
                 android:paddingBottom="8dp"
+                android:paddingTop="8dp"
                 app:layout_box="top|bottom">
 
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAlignment="center"
                     android:layout_gravity="center"
-                    android:textSize="18sp"
                     android:padding="8dp"
-                    android:textColor="?android:textColorPrimary" />
+                    android:textAlignment="center"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="18sp" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:textSize="14sp"
-                    android:textColor="?android:textColorSecondary" />
+                    android:textColor="?android:textColorSecondary"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:padding="8dp"
-                    android:textSize="14sp"
+                    android:textAlignment="center"
                     android:textColor="?android:textColorTertiary"
+                    android:textSize="14sp"
                     android:textStyle="italic" />
 
                 <View
@@ -84,8 +92,8 @@
                 android:id="@+id/imageView"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:tint="?android:textColorPrimary"
                 android:scaleType="centerInside"
+                android:tint="?android:textColorPrimary"
                 app:srcCompat="@drawable/ic_favorite_border" />
 
         </LinearLayout>

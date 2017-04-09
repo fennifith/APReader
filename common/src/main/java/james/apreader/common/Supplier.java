@@ -14,12 +14,17 @@ import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
 
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 import james.apreader.common.data.AuthorData;
@@ -162,6 +167,53 @@ public class Supplier extends Application {
                     @Override
                     public void run() {
                         listener.onTaskComplete(walls);
+                    }
+                });
+            }
+        }.start();
+    }
+
+    public void getFullContent(final WallData data, final AsyncListener<String> listener) {
+        new Thread() {
+            @Override
+            public void run() {
+                String content = null;
+                try {
+                    URLConnection connection = new URL(data.url).openConnection();
+                    connection.connect();
+
+                    InputStream stream = connection.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+
+                    StringBuilder builder = new StringBuilder();
+                    for (String line; (line = reader.readLine()) != null; ) {
+                        builder.append(line);
+                    }
+
+                    stream.close();
+                    content = builder.toString();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if (content != null) {
+                    Document document = Jsoup.parse(content);
+                    Elements elements = document.getElementsByClass("post-content");
+                    if (elements.size() > 0) {
+                        Element element = elements.first();
+                        element.select("img").remove();
+                        element.select("script").remove();
+                        content = element.html();
+                    } else content = null;
+                }
+
+                final String article = content;
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (article != null)
+                            listener.onTaskComplete(article);
+                        else listener.onFailure();
                     }
                 });
             }

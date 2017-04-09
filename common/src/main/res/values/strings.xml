@@ -8,4 +8,24 @@
     <string name="download_failed">Download failed ( ͡° ʖ̯ ͡°)</string>
     <string name="error">Something went wrong :(</string>
 
+    <array name="namey" formatted="false">
+        <item>MaterialDrawer - Mike Penz</item>
+        <item>Glide - Bumptech</item>
+        <item>Jsoup - Jonathan Hedley</item>
+    </array>
+
+    <array name="desc" formatted="false">
+        <item>The MaterialDrawer library aims to provide the easiest possible implementation of a
+            navigation drawer for your application.
+        </item>
+        <item>An image loading and caching library for Android focused on smooth scrolling.</item>
+        <item>A Java HTML parser that makes sense of real-world HTML soup.</item>
+    </array>
+
+    <string-array name="uri" formatted="false">
+        <item>https://github.com/mikepenz/MaterialDrawer</item>
+        <item>https://github.com/bumptech/glide</item>
+        <item>https://github.com/jhy/jsoup</item>
+    </string-array>
+
 </resources>
