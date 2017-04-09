@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.wearable.view.drawer.WearableDrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
+
+    <android.support.wearable.view.WearableRecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:scrollbars="vertical" />
+
+    <android.support.wearable.view.drawer.WearableActionDrawer
+        android:id="@+id/actionDrawer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:peek_view="@+id/preview">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+
+        <LinearLayout
+            android:id="@+id/preview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:selectableItemBackground"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imageView"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:scaleType="centerInside"
+                android:tint="?android:textColorPrimary" />
+
+        </LinearLayout>
+
+    </android.support.wearable.view.drawer.WearableActionDrawer>
+
+</android.support.wearable.view.drawer.WearableDrawerLayout>

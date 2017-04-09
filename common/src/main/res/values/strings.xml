@@ -1,5 +1,11 @@
 <resources>
+
     <string-array name="people_wps">
         <item>http://www.androidpolice.com/feed/</item>
     </string-array>
+
+    <!-- Toast messages -->
+    <string name="download_failed">Download failed ( ͡° ʖ̯ ͡°)</string>
+    <string name="error">Something went wrong :(</string>
+
 </resources>

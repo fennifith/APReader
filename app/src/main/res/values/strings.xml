@@ -25,10 +25,6 @@
 
     <string name="fetching_resources">Fetching Resources…</string>
 
-    <!-- Toast messages -->
-    <string name="download_failed">Download failed ( ͡° ʖ̯ ͡°)</string>
-    <string name="error">Something went wrong :(</string>
-
     <!-- Dialogs -->
     <string name="credit_required">Credit Required</string>
     <string name="credit_required_msg">The author has requested that credit be provided for this wallpaper. Please be considerate when sharing to external sources.</string>
@@ -47,7 +43,7 @@
     <!-- Don't edit these, credit is needed for the libraries -->
     <string name="libraries">Implemented Libraries:</string>
     <string name="action_homepage">Homepage</string>
-    <string name="empty">Nothing here...</string>
+    <string name="empty">Nothing here…</string>
 
     <array name="namey" formatted="false">
         <item>MaterialDrawer - Mike Penz</item>
