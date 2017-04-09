@@ -1,6 +1,8 @@
 package james.apreader.adapters;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.support.wearable.view.WearableRecyclerView;
 import android.view.LayoutInflater;
@@ -21,12 +23,14 @@ public class ArticleAdapter extends WearableRecyclerView.Adapter<ArticleAdapter.
     private Supplier supplier;
     private List<WallData> articles;
     private Integer artistId;
+    private Configuration configuration;
 
     public ArticleAdapter(Context context, List<WallData> articles, int artistId) {
         this.context = context;
         supplier = (Supplier) context.getApplicationContext();
         this.articles = articles;
         this.artistId = artistId;
+        configuration = context.getResources().getConfiguration();
     }
 
     @Override
@@ -48,7 +52,11 @@ public class ArticleAdapter extends WearableRecyclerView.Adapter<ArticleAdapter.
         if (getItemViewType(position) == 0) {
             WallData article = articles.get(position);
             holder.title.setText(article.name);
-            holder.subtitle.setText(article.desc.contains(".") ? article.desc.substring(0, article.desc.indexOf(".") + 1) : article.desc);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !configuration.isScreenRound())
+                holder.subtitle.setText(article.desc.contains(".") ? article.desc.substring(0, article.desc.indexOf(".") + 1) : article.desc);
+
+            holder.itemView.setAlpha(0);
+            holder.itemView.animate().alpha(1).start();
         } else {
             if (artistId != null) {
                 supplier.getWallpapers(artistId, new Supplier.AsyncListener<ArrayList<WallData>>() {
