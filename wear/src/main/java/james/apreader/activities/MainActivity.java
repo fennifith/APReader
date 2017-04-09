@@ -29,6 +29,6 @@ public class MainActivity extends Activity {
 
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
-        recyclerView.setPadding(0, size.y / 2, 0, size.y / 2);
+        recyclerView.setPadding(0, (int) (size.y / 2.5), 0, (int) (size.y / 2.5));
     }
 }
