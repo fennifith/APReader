@@ -24,6 +24,8 @@
 
         <activity android:name=".activities.MainActivity" />
 
+        <activity android:name=".activities.ArticleActivity" />
+
     </application>
 
 </manifest>

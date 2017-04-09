@@ -1,6 +1,7 @@
 package james.apreader.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import james.apreader.R;
+import james.apreader.activities.ArticleActivity;
 import james.apreader.common.Supplier;
 import james.apreader.common.data.WallData;
 
@@ -48,12 +50,21 @@ public class ArticleAdapter extends WearableRecyclerView.Adapter<ArticleAdapter.
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         if (getItemViewType(position) == 0) {
             WallData article = articles.get(position);
             holder.title.setText(article.name);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !configuration.isScreenRound())
                 holder.subtitle.setText(article.desc.contains(".") ? article.desc.substring(0, article.desc.indexOf(".") + 1) : article.desc);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ArticleActivity.class);
+                    intent.putExtra(ArticleActivity.EXTRA_ARTICLE, articles.get(holder.getAdapterPosition()));
+                    context.startActivity(intent);
+                }
+            });
 
             holder.itemView.setAlpha(0);
             holder.itemView.animate().alpha(1).start();
@@ -70,7 +81,6 @@ public class ArticleAdapter extends WearableRecyclerView.Adapter<ArticleAdapter.
                     public void onFailure() {
                         artistId = null;
                         notifyDataSetChanged();
-
                     }
                 });
             }
