@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">APReader</string>
+    <string name="app_name">AP Reader</string>
     <string name="app_desc">A client for quick access to Android Police posts.</string>
 
     <!-- Activity/fragment/drawer item names -->
