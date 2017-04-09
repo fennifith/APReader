@@ -71,33 +71,8 @@
     <android.support.wearable.view.drawer.WearableActionDrawer
         android:id="@+id/actionDrawer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/colorPrimary"
-        app:peek_view="@+id/favorite">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp" />
-
-        <LinearLayout
-            android:id="@+id/favorite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/imageView"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:scaleType="centerInside"
-                android:tint="?android:textColorPrimary"
-                app:srcCompat="@drawable/ic_favorite_border" />
-
-        </LinearLayout>
-
-    </android.support.wearable.view.drawer.WearableActionDrawer>
+        app:action_menu="@menu/menu_article" />
 
 </android.support.wearable.view.drawer.WearableDrawerLayout>

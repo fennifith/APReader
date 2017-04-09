@@ -8,10 +8,9 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.wearable.view.drawer.WearableActionDrawer;
 import android.support.wearable.view.drawer.WearableDrawerLayout;
 import android.text.Html;
-import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -19,14 +18,13 @@ import james.apreader.R;
 import james.apreader.common.Supplier;
 import james.apreader.common.data.WallData;
 
-public class ArticleActivity extends Activity {
+public class ArticleActivity extends Activity implements WearableActionDrawer.OnMenuItemClickListener {
 
     public static final String EXTRA_ARTICLE = "james.apreader.EXTRA_ARTICLE";
 
     private WearableDrawerLayout drawerLayout;
     private ProgressBar progressBar;
     private TextView content;
-    private ImageView favoriteImage;
 
     private WallData article;
     private Supplier supplier;
@@ -45,11 +43,8 @@ public class ArticleActivity extends Activity {
         TextView title = (TextView) findViewById(R.id.title);
         content = (TextView) findViewById(R.id.content);
         TextView date = (TextView) findViewById(R.id.date);
-        final View favorite = findViewById(R.id.favorite);
-        favoriteImage = (ImageView) findViewById(R.id.imageView);
 
         drawerLayout.peekDrawer(Gravity.BOTTOM);
-        actionDrawer.lockDrawerClosed();
         scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -63,19 +58,12 @@ public class ArticleActivity extends Activity {
         content.setText(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? Html.fromHtml(article.desc, 0) : Html.fromHtml(article.desc));
         date.setText(article.date);
 
-        favoriteImage.setImageResource(supplier.isFavorite(article) ? R.drawable.ic_favorite : R.drawable.ic_favorite_border);
-        favorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (supplier.isFavorite(article)) {
-                    supplier.unfavoriteWallpaper(article);
-                    favoriteImage.setImageResource(R.drawable.ic_favorite_border);
-                } else {
-                    supplier.favoriteWallpaper(article);
-                    favoriteImage.setImageResource(R.drawable.ic_favorite);
-                }
-            }
-        });
+        actionDrawer.setOnMenuItemClickListener(this);
+
+        MenuItem favoriteItem = actionDrawer.getMenu().findItem(R.id.action_favorite);
+        boolean isFavorite = supplier.isFavorite(article);
+        favoriteItem.setTitle(isFavorite ? R.string.action_unfavorite : R.string.action_favorite);
+        favoriteItem.setIcon(isFavorite ? R.drawable.ic_favorite : R.drawable.ic_favorite_border);
 
         supplier.getFullContent(article, new Supplier.AsyncListener<String>() {
             @Override
@@ -88,12 +76,26 @@ public class ArticleActivity extends Activity {
 
             @Override
             public void onFailure() {
-                if (progressBar != null) {
-                    Log.e("ArticleActivity", "failed to load full content");
+                if (progressBar != null)
                     progressBar.setVisibility(View.GONE);
-                }
             }
         });
     }
 
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.action_favorite:
+                if (supplier.isFavorite(article)) {
+                    supplier.unfavoriteWallpaper(article);
+                    menuItem.setTitle(R.string.action_favorite);
+                    menuItem.setIcon(R.drawable.ic_favorite_border);
+                } else {
+                    supplier.favoriteWallpaper(article);
+                    menuItem.setTitle(R.string.action_unfavorite);
+                    menuItem.setIcon(R.drawable.ic_favorite);
+                }
+        }
+        return false;
+    }
 }

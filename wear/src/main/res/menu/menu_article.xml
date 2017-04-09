@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_favorite"
+        android:title="@string/action_favorite"
+        android:icon="@drawable/ic_favorite_border" />
+
+    <item
+        android:id="@+id/action_view"
+        android:title="@string/action_view_in_browser"
+        android:icon="@drawable/ic_launch" />
+
+    <item
+        android:id="@+id/action_phone"
+        android:title="@string/action_phone"
+        android:icon="@drawable/ic_phone" />
+
+</menu>
