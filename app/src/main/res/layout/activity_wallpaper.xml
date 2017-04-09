@@ -5,59 +5,16 @@
     android:background="@android:color/white">
 
     <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/appbar"
-        android:background="#E0E0E0">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <android.support.design.widget.CollapsingToolbarLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="288dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="@color/colorPrimary"
-            app:titleEnabled="false">
-
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:indeterminate="true"
-                app:layout_collapseMode="parallax"/>
-
-            <android.support.v4.view.ViewPager
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:id="@+id/viewPager" />
-
-            <james.apreader.views.CustomImageView
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:src="@drawable/gradient_flipped"
-                android:layout_gravity="bottom"
-                app:layout_collapseMode="parallax"/>
-
-            <james.apreader.views.PageIndicator
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_gravity="bottom|center_horizontal"
-                android:id="@+id/indicator" />
-
-            <james.apreader.views.CustomImageView
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:src="@drawable/gradient"
-                app:layout_collapseMode="parallax"/>
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:layout_collapseMode="pin"/>
-
-        </android.support.design.widget.CollapsingToolbarLayout>
+            android:layout_height="?attr/actionBarSize"
+            app:layout_collapseMode="pin"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -69,106 +26,114 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="4dp"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical"
             android:paddingBottom="4dp"
-            android:orientation="vertical">
+            android:paddingTop="4dp">
 
             <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/categories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="12dp"
                 android:paddingBottom="12dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
+                android:paddingTop="12dp"
                 android:visibility="gone"
-                android:id="@+id/categories"
                 app:flexWrap="wrap"
                 app:justifyContent="flex_start" />
 
             <TextView
+                android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/date"
-                android:textColor="@color/colorAccent"
-                android:layout_marginRight="16dp"
+                android:layout_marginBottom="6dp"
                 android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:textColor="@color/colorAccent"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:typeface="monospace"
-                android:layout_marginBottom="6dp" />
+                android:typeface="monospace" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp" />
 
             <TextView
+                android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/description"
-                android:textSize="14sp"
-                android:textColor="@color/textColorSecondaryInverse"
-                android:typeface="monospace"
-                android:lineSpacingMultiplier="1.2"
+                android:layout_marginBottom="8dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginBottom="8dp" />
+                android:lineSpacingMultiplier="1.2"
+                android:textColor="@color/textColorSecondaryInverse"
+                android:textSize="14sp"
+                android:typeface="monospace" />
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:layout_gravity="bottom">
+                android:layout_gravity="bottom"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:id="@+id/launchPost"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:id="@+id/launchPost">
+                    android:orientation="vertical">
 
                     <james.apreader.views.SquareImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        app:srcCompat="@drawable/ic_launch"
+                        android:layout_gravity="center_horizontal"
                         android:tint="@color/textColorPrimaryInverse"
-                        android:layout_gravity="center_horizontal" />
+                        app:srcCompat="@drawable/ic_launch" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/action_view_in_browser"
-                        android:textColor="@color/textColorSecondaryInverse"
                         android:layout_gravity="center_horizontal"
-                        android:gravity="center_horizontal"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
+                        android:gravity="center_horizontal"
+                        android:text="@string/action_view_in_browser"
+                        android:textColor="@color/textColorSecondaryInverse"
                         android:textSize="14sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:id="@+id/launchAuthor"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:id="@+id/launchAuthor">
+                    android:orientation="vertical">
 
                     <james.apreader.views.SquareImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        app:srcCompat="@drawable/ic_info"
+                        android:layout_gravity="center_horizontal"
                         android:tint="@color/textColorPrimaryInverse"
-                        android:layout_gravity="center_horizontal" />
+                        app:srcCompat="@drawable/ic_info" />
 
                     <TextView
+                        android:id="@+id/auth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/auth"
-                        android:text="@string/action_homepage"
-                        android:textColor="@color/textColorSecondaryInverse"
                         android:layout_gravity="center_horizontal"
-                        android:gravity="center_horizontal"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
+                        android:gravity="center_horizontal"
+                        android:text="@string/action_homepage"
+                        android:textColor="@color/textColorSecondaryInverse"
                         android:textSize="14sp" />
 
                 </LinearLayout>

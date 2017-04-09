@@ -4,6 +4,10 @@
         <item>http://www.androidpolice.com/feed/</item>
     </string-array>
 
+    <string name="action_view_in_browser">View in Browser</string>
+    <string name="action_favorite">Favorite</string>
+    <string name="action_unfavorite">Unfavorite</string>
+
     <!-- Toast messages -->
     <string name="download_failed">Download failed ( ͡° ʖ̯ ͡°)</string>
     <string name="error">Something went wrong :(</string>

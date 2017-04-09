@@ -8,10 +8,4 @@
         android:icon="@drawable/fav_add"
         app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/action_fullscreen"
-        android:title="@string/action_fullscreen"
-        android:icon="@drawable/ic_fullscreen"
-        app:showAsAction="ifRoom" />
-
 </menu>

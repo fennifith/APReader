@@ -3,10 +3,10 @@ package james.apreader.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -15,18 +15,16 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.flexbox.FlexboxLayout;
 
 import james.apreader.R;
-import james.apreader.adapters.ImagePagerAdapter;
 import james.apreader.common.Supplier;
 import james.apreader.common.data.WallData;
 import james.apreader.common.utils.ImageUtils;
-import james.apreader.dialogs.ImageDialog;
-import james.apreader.views.PageIndicator;
 
 
 public class WallActivity extends AppCompatActivity {
@@ -35,14 +33,14 @@ public class WallActivity extends AppCompatActivity {
     Supplier supplier;
 
     Toolbar toolbar;
-    ViewPager viewPager;
-    PageIndicator indicator;
 
     Handler handler;
     Runnable runnable;
 
     TextView date, auth, desc;
     FlexboxLayout categories;
+
+    ProgressBar progressBar;
 
     SharedPreferences prefs;
 
@@ -58,8 +56,7 @@ public class WallActivity extends AppCompatActivity {
         setTitle(data.name);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        indicator = (PageIndicator) findViewById(R.id.indicator);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         date = (TextView) findViewById(R.id.date);
         auth = (TextView) findViewById(R.id.auth);
         desc = (TextView) findViewById(R.id.description);
@@ -68,43 +65,8 @@ public class WallActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        viewPager.setAdapter(new ImagePagerAdapter(this, data));
-        indicator.setViewPager(viewPager);
-
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                handler.removeCallbacks(runnable);
-                handler.postDelayed(runnable, 5000);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
-
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-                if (viewPager.getCurrentItem() > viewPager.getChildCount())
-                    viewPager.setCurrentItem(0);
-                else viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
-            }
-        };
-
         handler = new Handler();
         handler.postDelayed(runnable, 5000);
-
-        findViewById(R.id.appbar).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new ImageDialog(WallActivity.this).setImage(viewPager.getCurrentItem()).setWallpaper(data).show();
-            }
-        });
 
         if (data.categories.size() > 0) {
             categories.setVisibility(View.VISIBLE);
@@ -117,8 +79,24 @@ public class WallActivity extends AppCompatActivity {
         }
 
         date.setText(data.date);
-        desc.setText(Html.fromHtml(data.desc));
+        desc.setText(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? Html.fromHtml(data.desc, 0) : Html.fromHtml(data.desc));
         desc.setMovementMethod(new LinkMovementMethod());
+
+        supplier.getFullContent(data, new Supplier.AsyncListener<String>() {
+            @Override
+            public void onTaskComplete(String value) {
+                if (desc != null && progressBar != null) {
+                    desc.setText(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? Html.fromHtml(value, 0) : Html.fromHtml(value));
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure() {
+                if (progressBar != null)
+                    progressBar.setVisibility(View.GONE);
+            }
+        });
 
         findViewById(R.id.launchPost).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,9 +136,6 @@ public class WallActivity extends AppCompatActivity {
                 }
 
                 item.setIcon(ImageUtils.getVectorDrawable(this, supplier.isFavorite(data) ? R.drawable.fav_added : R.drawable.fav_add));
-                break;
-            case R.id.action_fullscreen:
-                new ImageDialog(WallActivity.this).setImage(viewPager.getCurrentItem()).setWallpaper(data).show();
                 break;
         }
         return super.onOptionsItemSelected(item);

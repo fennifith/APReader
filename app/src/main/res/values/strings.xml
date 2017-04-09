@@ -10,9 +10,6 @@
     <string name="title_articles">Articles</string>
 
     <string name="action_view">View</string>
-    <string name="action_view_in_browser">View in Browser</string>
-    <string name="action_favorite">Favorite</string>
-    <string name="action_unfavorite">Unfavorite</string>
     <string name="action_fullscreen">Fullscreen</string>
     <string name="action_comments">Comments</string>
     <string name="action_share">Share</string>
