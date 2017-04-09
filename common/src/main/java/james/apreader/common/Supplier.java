@@ -5,6 +5,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import james.apreader.common.data.AuthorData;
 import james.apreader.common.data.WallData;
 import james.apreader.common.utils.ElementUtils;
+import james.apreader.common.utils.FontUtils;
 
 public class Supplier extends Application {
 
@@ -40,6 +42,8 @@ public class Supplier extends Application {
     private ArrayList<WallData> wallpapers;
 
     private ArrayList<String> favWallpapers;
+
+    private Typeface typeface;
 
     private SharedPreferences prefs;
     private Gson gson;
@@ -91,6 +95,13 @@ public class Supplier extends Application {
         }
 
         return true;
+    }
+
+    public Typeface getTypeface() {
+        if (typeface == null)
+            typeface = FontUtils.getTypeface(this);
+
+        return typeface;
     }
 
     //get a list of the different sections

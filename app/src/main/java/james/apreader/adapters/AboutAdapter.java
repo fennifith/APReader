@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import james.apreader.R;
+import james.apreader.common.utils.FontUtils;
 
 public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.ViewHolder> {
 
@@ -87,18 +88,23 @@ public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.ViewHolder> 
                 TextView header = (TextView) holder.v.findViewById(R.id.header);
                 header.setVisibility(View.VISIBLE);
                 header.setText(name);
+
                 if (centered) header.setGravity(Gravity.CENTER_HORIZONTAL);
+                FontUtils.applyTypeface(header);
             } else holder.v.findViewById(R.id.header).setVisibility(View.GONE);
 
             if (content != null && content.length() > 0) {
                 TextView desc = (TextView) holder.v.findViewById(R.id.content);
                 desc.setVisibility(View.VISIBLE);
                 desc.setText(content);
+
                 if (centered) {
                     desc.setGravity(Gravity.CENTER_HORIZONTAL);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
                         desc.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 }
+
+                FontUtils.applyTypeface(desc);
             } else holder.v.findViewById(R.id.content).setVisibility(View.GONE);
 
             if (url != null) {
@@ -133,12 +139,14 @@ public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.ViewHolder> 
                 TextView header = (TextView) holder.v.findViewById(R.id.header);
                 header.setVisibility(View.VISIBLE);
                 header.setText(name);
+                FontUtils.applyTypeface(header);
             } else holder.v.findViewById(R.id.header).setVisibility(View.GONE);
 
             if (content != null && content.length() > 0) {
                 TextView desc = (TextView) holder.v.findViewById(R.id.content);
                 desc.setVisibility(View.VISIBLE);
                 desc.setText(content);
+                FontUtils.applyTypeface(desc);
             } else holder.v.findViewById(R.id.content).setVisibility(View.GONE);
 
             if (primary != null) {

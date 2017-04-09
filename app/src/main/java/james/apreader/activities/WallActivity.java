@@ -24,6 +24,7 @@ import com.google.android.flexbox.FlexboxLayout;
 import james.apreader.R;
 import james.apreader.common.Supplier;
 import james.apreader.common.data.WallData;
+import james.apreader.common.utils.FontUtils;
 import james.apreader.common.utils.ImageUtils;
 
 
@@ -61,6 +62,10 @@ public class WallActivity extends AppCompatActivity {
         auth = (TextView) findViewById(R.id.auth);
         desc = (TextView) findViewById(R.id.description);
         categories = (FlexboxLayout) findViewById(R.id.categories);
+
+        FontUtils.applyTypeface(date);
+        FontUtils.applyTypeface(auth);
+        FontUtils.applyTypeface(desc);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

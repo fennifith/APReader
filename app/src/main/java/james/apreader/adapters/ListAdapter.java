@@ -14,6 +14,7 @@ import james.apreader.R;
 import james.apreader.activities.WallActivity;
 import james.apreader.common.Supplier;
 import james.apreader.common.data.WallData;
+import james.apreader.common.utils.FontUtils;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private ArrayList<WallData> walls;
@@ -60,9 +61,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             case 0:
                 WallData article = walls.get(position);
 
-                ((TextView) holder.v.findViewById(R.id.title)).setText(article.name);
+                holder.title.setText(article.name);
+                FontUtils.applyTypeface(holder.title);
 
-                holder.v.setOnClickListener(new View.OnClickListener() {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(activity, WallActivity.class);
@@ -73,19 +75,22 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                 });
 
                 if (layoutMode == LAYOUT_MODE_COMPLEX) {
-                    ((TextView) holder.v.findViewById(R.id.content)).setText(article.desc.contains(".") ? article.desc.substring(0, article.desc.indexOf(".") + 1) : article.desc);
+                    holder.content.setText(article.desc.contains(".") ? article.desc.substring(0, article.desc.indexOf(".") + 1) : article.desc);
+                    FontUtils.applyTypeface(holder.content);
 
-                    ViewGroup categories = (ViewGroup) holder.v.findViewById(R.id.categories);
                     if (article.categories.size() > 0) {
-                        categories.setVisibility(View.VISIBLE);
-                        categories.removeAllViewsInLayout();
+                        holder.categories.setVisibility(View.VISIBLE);
+                        holder.categories.removeAllViewsInLayout();
 
                         for (String category : article.categories) {
-                            View v = LayoutInflater.from(activity).inflate(R.layout.layout_category, categories, false);
-                            ((TextView) v.findViewById(R.id.title)).setText(category.toLowerCase());
-                            categories.addView(v);
+                            View v = LayoutInflater.from(activity).inflate(R.layout.layout_category, holder.categories, false);
+                            TextView title = (TextView) v.findViewById(R.id.title);
+                            title.setText(category.toLowerCase());
+                            FontUtils.applyTypeface(title);
+
+                            holder.categories.addView(v);
                         }
-                    } else categories.setVisibility(View.GONE);
+                    } else holder.categories.setVisibility(View.GONE);
                 }
 
                 holder.v.setAlpha(0);
@@ -120,11 +125,17 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public View v;
+        private View v;
+        private TextView title;
+        private TextView content;
+        private ViewGroup categories;
 
         public ViewHolder(View v) {
             super(v);
             this.v = v;
+            title = (TextView) v.findViewById(R.id.title);
+            content = (TextView) v.findViewById(R.id.content);
+            categories = (ViewGroup) v.findViewById(R.id.categories);
         }
     }
 }

@@ -19,6 +19,7 @@ import james.apreader.activities.WallActivity;
 import james.apreader.common.Supplier;
 import james.apreader.common.data.AuthorData;
 import james.apreader.common.data.WallData;
+import james.apreader.common.utils.FontUtils;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
 
@@ -76,6 +77,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             title.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(activity, R.color.colorAccent)));
             subtitle.setText(null);
         }
+
+        FontUtils.applyTypeface(title);
+        FontUtils.applyTypeface(subtitle);
 
         holder.clicker.setTag(position);
         holder.clicker.setOnClickListener(new View.OnClickListener() {
