@@ -1,5 +1,5 @@
 <resources>
     <string-array name="people_wps">
-        <item>http://feeds.feedburner.com/AndroidPolice</item>
+        <item>http://www.androidpolice.com/feed/</item>
     </string-array>
 </resources>
