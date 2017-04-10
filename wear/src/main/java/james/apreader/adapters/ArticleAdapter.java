@@ -18,6 +18,7 @@ import james.apreader.R;
 import james.apreader.activities.ArticleActivity;
 import james.apreader.common.Supplier;
 import james.apreader.common.data.WallData;
+import james.apreader.common.utils.FontUtils;
 
 public class ArticleAdapter extends WearableRecyclerView.Adapter<ArticleAdapter.ViewHolder> {
 
@@ -56,6 +57,11 @@ public class ArticleAdapter extends WearableRecyclerView.Adapter<ArticleAdapter.
             holder.title.setText(article.name);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !configuration.isScreenRound())
                 holder.subtitle.setText(article.desc.contains(".") ? article.desc.substring(0, article.desc.indexOf(".") + 1) : article.desc);
+
+            FontUtils.applyTypeface(holder.title);
+            FontUtils.applyTypeface(holder.subtitle);
+
+            holder.favorite.setVisibility(supplier.isFavorite(article) ? View.VISIBLE : View.GONE);
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -96,11 +102,13 @@ public class ArticleAdapter extends WearableRecyclerView.Adapter<ArticleAdapter.
 
         private TextView title;
         private TextView subtitle;
+        private View favorite;
 
         public ViewHolder(View v) {
             super(v);
             title = (TextView) v.findViewById(R.id.title);
             subtitle = (TextView) v.findViewById(R.id.subtitle);
+            favorite = v.findViewById(R.id.favorite);
         }
     }
 }

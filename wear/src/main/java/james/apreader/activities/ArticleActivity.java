@@ -17,6 +17,7 @@ import android.widget.TextView;
 import james.apreader.R;
 import james.apreader.common.Supplier;
 import james.apreader.common.data.WallData;
+import james.apreader.common.utils.FontUtils;
 
 public class ArticleActivity extends Activity implements WearableActionDrawer.OnMenuItemClickListener {
 
@@ -57,6 +58,10 @@ public class ArticleActivity extends Activity implements WearableActionDrawer.On
         title.setText(article.name);
         content.setText(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? Html.fromHtml(article.desc, 0) : Html.fromHtml(article.desc));
         date.setText(article.date);
+
+        FontUtils.applyTypeface(title);
+        FontUtils.applyTypeface(content);
+        FontUtils.applyTypeface(date);
 
         actionDrawer.setOnMenuItemClickListener(this);
 
