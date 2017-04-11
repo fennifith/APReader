@@ -7,11 +7,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Log;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.wearable.MessageApi;
+import com.google.android.gms.wearable.Node;
+import com.google.android.gms.wearable.NodeApi;
+import com.google.android.gms.wearable.Wearable;
 import com.google.gson.Gson;
 
 import org.jsoup.Jsoup;
@@ -32,7 +43,9 @@ import james.apreader.common.data.WallData;
 import james.apreader.common.utils.ElementUtils;
 import james.apreader.common.utils.FontUtils;
 
-public class Supplier extends Application {
+public class Supplier extends Application implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+
+    public static final String WEAR_PATH = "/apreader-wear-path";
 
     private String url;
     private int pages;
@@ -45,6 +58,8 @@ public class Supplier extends Application {
     private Typeface typeface;
 
     private SharedPreferences prefs;
+    private GoogleApiClient apiClient;
+    private Node node;
     private Gson gson;
 
     @Override
@@ -53,6 +68,13 @@ public class Supplier extends Application {
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         gson = new Gson();
+
+        apiClient = new GoogleApiClient.Builder(this)
+                .addApi(Wearable.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+        ;
 
         url = getString(R.string.feed_url);
 
@@ -258,6 +280,42 @@ public class Supplier extends Application {
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_STREAM, String.valueOf(Uri.parse(url)));
         context.startActivity(intent);
+    }
+
+    public void sendWearableMessage(String message) {
+        if (node != null && apiClient != null && apiClient.isConnected()) {
+            Wearable.MessageApi.sendMessage(apiClient, node.getId(), WEAR_PATH, message.getBytes()).setResultCallback(
+                    new ResultCallback<MessageApi.SendMessageResult>() {
+                        @Override
+                        public void onResult(@NonNull MessageApi.SendMessageResult sendMessageResult) {
+                            if (!sendMessageResult.getStatus().isSuccess())
+                                Log.e("TAG", "Failed to send message: " + sendMessageResult.getStatus().getStatusCode());
+                        }
+                    }
+            );
+        }
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        Wearable.NodeApi.getConnectedNodes(apiClient).setResultCallback(new ResultCallback<NodeApi.GetConnectedNodesResult>() {
+            @Override
+            public void onResult(NodeApi.GetConnectedNodesResult nodes) {
+                for (Node node : nodes.getNodes()) {
+                    Supplier.this.node = node;
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 
     public interface AsyncListener<E> {

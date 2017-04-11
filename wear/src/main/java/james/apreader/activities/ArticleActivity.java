@@ -100,6 +100,12 @@ public class ArticleActivity extends Activity implements WearableActionDrawer.On
                     menuItem.setTitle(R.string.action_unfavorite);
                     menuItem.setIcon(R.drawable.ic_favorite);
                 }
+                break;
+            case R.id.action_view:
+                supplier.sendWearableMessage(article.url);
+                break;
+            case R.id.action_phone:
+                break;
         }
         return false;
     }
