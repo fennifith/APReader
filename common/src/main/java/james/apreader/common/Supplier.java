@@ -302,7 +302,7 @@ public class Supplier extends Application implements GoogleApiClient.ConnectionC
                         }
                     }
             );
-        }
+        } else if (listener != null) listener.onFailure();
     }
 
     @Override
