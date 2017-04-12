@@ -42,7 +42,6 @@ public class WearMovementMethod extends LinkMovementMethod {
 
         @Override
         public void onLongPress(MotionEvent e) {
-            String text = buffer.toString();
         }
 
         @Override
