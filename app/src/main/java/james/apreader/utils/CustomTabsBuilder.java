@@ -1,4 +1,4 @@
-package james.apreader.util;
+package james.apreader.utils;
 
 import android.content.Context;
 import android.net.Uri;

@@ -11,8 +11,6 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
-import james.apreader.util.CustomTabsBuilder;
-
 public class CustomTabsMovementMethod extends LinkMovementMethod {
 
     private Context context;

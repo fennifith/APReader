@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import james.apreader.R;
 import james.apreader.common.utils.FontUtils;
-import james.apreader.util.CustomTabsBuilder;
+import james.apreader.utils.CustomTabsBuilder;
 
 public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.ViewHolder> {
 

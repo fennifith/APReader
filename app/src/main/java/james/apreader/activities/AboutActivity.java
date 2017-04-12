@@ -15,7 +15,7 @@ import james.apreader.R;
 import james.apreader.adapters.AboutAdapter;
 import james.apreader.common.Supplier;
 import james.apreader.common.data.AuthorData;
-import james.apreader.util.CustomTabsBuilder;
+import james.apreader.utils.CustomTabsBuilder;
 
 public class AboutActivity extends AppCompatActivity {
 

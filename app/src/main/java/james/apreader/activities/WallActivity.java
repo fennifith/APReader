@@ -24,7 +24,7 @@ import james.apreader.common.Supplier;
 import james.apreader.common.data.WallData;
 import james.apreader.common.utils.FontUtils;
 import james.apreader.common.utils.ImageUtils;
-import james.apreader.util.CustomTabsBuilder;
+import james.apreader.utils.CustomTabsBuilder;
 import james.apreader.utils.CustomTabsMovementMethod;
 
 
@@ -80,7 +80,9 @@ public class WallActivity extends AppCompatActivity {
 
             for (String category : data.categories) {
                 View v = LayoutInflater.from(this).inflate(R.layout.layout_category, null);
-                ((TextView) v.findViewById(R.id.title)).setText(category.toLowerCase());
+                TextView title = (TextView) v.findViewById(R.id.title);
+                title.setText(category.toLowerCase());
+                FontUtils.applyTypeface(title);
                 categories.addView(v);
             }
         }
