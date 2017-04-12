@@ -19,7 +19,7 @@ import com.google.gson.Gson;
 
 import james.apreader.R;
 import james.apreader.common.Supplier;
-import james.apreader.common.data.WallData;
+import james.apreader.common.data.ArticleData;
 import james.apreader.utils.WearMovementMethod;
 
 public class ArticleActivity extends Activity implements WearableActionDrawer.OnMenuItemClickListener {
@@ -30,7 +30,7 @@ public class ArticleActivity extends Activity implements WearableActionDrawer.On
     private ProgressBar progressBar;
     private TextView content;
 
-    private WallData article;
+    private ArticleData article;
     private Supplier supplier;
 
     @Override
@@ -92,11 +92,11 @@ public class ArticleActivity extends Activity implements WearableActionDrawer.On
         switch (menuItem.getItemId()) {
             case R.id.action_favorite:
                 if (supplier.isFavorite(article)) {
-                    supplier.unfavoriteWallpaper(article);
+                    supplier.unfavoriteArticle(article);
                     menuItem.setTitle(R.string.action_favorite);
                     menuItem.setIcon(R.drawable.ic_favorite_border);
                 } else {
-                    supplier.favoriteWallpaper(article);
+                    supplier.favoriteArticle(article);
                     menuItem.setTitle(R.string.action_unfavorite);
                     menuItem.setIcon(R.drawable.ic_favorite);
                 }

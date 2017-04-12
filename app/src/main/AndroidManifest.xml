@@ -27,7 +27,7 @@
         <activity android:name="james.apreader.activities.MainActivity"/>
 
         <activity
-            android:name="james.apreader.activities.WallActivity"
+            android:name="james.apreader.activities.ArticleActivity"
             android:parentActivityName="james.apreader.activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

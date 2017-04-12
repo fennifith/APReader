@@ -8,22 +8,22 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-import james.apreader.common.data.WallData;
+import james.apreader.common.data.ArticleData;
 import james.apreader.views.CustomImageView;
 
 public class ImagePagerAdapter extends PagerAdapter {
 
     Activity activity;
-    WallData data;
+    ArticleData data;
     boolean centerCrop;
 
-    public ImagePagerAdapter(Activity activity, WallData data) {
+    public ImagePagerAdapter(Activity activity, ArticleData data) {
         this.activity = activity;
         this.data = data;
         centerCrop = true;
     }
 
-    public ImagePagerAdapter(Activity activity, WallData data, boolean centerCrop) {
+    public ImagePagerAdapter(Activity activity, ArticleData data, boolean centerCrop) {
         this.activity = activity;
         this.data = data;
         this.centerCrop = centerCrop;

@@ -11,14 +11,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import james.apreader.R;
-import james.apreader.activities.WallActivity;
+import james.apreader.activities.ArticleActivity;
 import james.apreader.common.Supplier;
-import james.apreader.common.data.WallData;
+import james.apreader.common.data.ArticleData;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
 
     Activity activity;
-    ArrayList<WallData> totalWalls, walls;
+    ArrayList<ArticleData> totalArticles, articles;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public View v, title, subtitle, clicker, card;
@@ -37,8 +37,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         Supplier supplier = (Supplier) activity.getApplicationContext();
 
         this.activity = activity;
-        totalWalls = supplier.getWallpapers();
-        walls = new ArrayList<>();
+        totalArticles = supplier.getArticles();
+        articles = new ArrayList<>();
     }
 
     @Override
@@ -51,15 +51,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder holder, int position) {
         TextView title = (TextView) holder.title, subtitle = (TextView) holder.subtitle;
 
-        title.setText(walls.get(position).name);
-        subtitle.setText(walls.get(position).authorName);
+        title.setText(articles.get(position).name);
+        subtitle.setText(articles.get(position).authorName);
 
         holder.clicker.setTag(position);
         holder.clicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(activity, WallActivity.class);
-                i.putExtra("wall", walls.get(holder.getAdapterPosition()));
+                Intent i = new Intent(activity, ArticleActivity.class);
+                i.putExtra(ArticleActivity.EXTRA_ARTICLE, articles.get(holder.getAdapterPosition()));
                 activity.startActivity(i);
             }
         });
@@ -70,15 +70,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return walls.size();
+        return articles.size();
     }
 
     public void filter(String filter) {
-        walls.clear();
+        articles.clear();
 
-        for (WallData data : totalWalls) {
+        for (ArticleData data : totalArticles) {
             if (data.name.toLowerCase().contains(filter.toLowerCase()) || filter.toLowerCase().contains(data.name.toLowerCase()))
-                walls.add(data);
+                articles.add(data);
         }
 
         notifyDataSetChanged();

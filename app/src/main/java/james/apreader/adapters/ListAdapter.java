@@ -11,18 +11,18 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import james.apreader.R;
-import james.apreader.activities.WallActivity;
+import james.apreader.activities.ArticleActivity;
 import james.apreader.common.Supplier;
-import james.apreader.common.data.WallData;
+import james.apreader.common.data.ArticleData;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
-    private ArrayList<WallData> walls;
+    private ArrayList<ArticleData> walls;
     private Activity activity;
     private Integer artistId;
 
     private Supplier supplier;
 
-    public ListAdapter(Activity activity, ArrayList<WallData> walls) {
+    public ListAdapter(Activity activity, ArrayList<ArticleData> walls) {
         this.activity = activity;
         this.walls = walls;
         supplier = (Supplier) activity.getApplicationContext();
@@ -52,16 +52,15 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public void onBindViewHolder(final ListAdapter.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case 0:
-                WallData article = walls.get(position);
+                ArticleData article = walls.get(position);
 
                 holder.title.setText(article.name);
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(activity, WallActivity.class);
-                        intent.putExtra("wall", walls.get(holder.getAdapterPosition()));
-                        intent.putExtra("up", "Flat");
+                        Intent intent = new Intent(activity, ArticleActivity.class);
+                        intent.putExtra(ArticleActivity.EXTRA_ARTICLE, walls.get(holder.getAdapterPosition()));
                         activity.startActivity(intent);
                     }
                 });
@@ -74,8 +73,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
                     for (String category : article.categories) {
                         View v = LayoutInflater.from(activity).inflate(R.layout.layout_category, holder.categories, false);
-                        TextView title = (TextView) v.findViewById(R.id.title);
-                        title.setText(category.toLowerCase());
+                        ((TextView) v.findViewById(R.id.title)).setText(category.toLowerCase());
 
                         holder.categories.addView(v);
                     }
@@ -86,10 +84,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                 break;
             case 1:
                 if (artistId != null) {
-                    supplier.getWallpapers(new Supplier.AsyncListener<ArrayList<WallData>>() {
+                    supplier.getArticles(new Supplier.AsyncListener<ArrayList<ArticleData>>() {
 
                         @Override
-                        public void onTaskComplete(ArrayList<WallData> value) {
+                        public void onTaskComplete(ArrayList<ArticleData> value) {
                             walls.addAll(value);
                             notifyDataSetChanged();
                         }

@@ -38,8 +38,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
+import james.apreader.common.data.ArticleData;
 import james.apreader.common.data.AuthorData;
-import james.apreader.common.data.WallData;
 import james.apreader.common.utils.ElementUtils;
 import james.apreader.common.utils.FontUtils;
 
@@ -51,7 +51,7 @@ public class Supplier extends Application implements GoogleApiClient.ConnectionC
     private int pages;
 
     private AuthorData author;
-    private ArrayList<WallData> wallpapers;
+    private ArrayList<ArticleData> articles;
 
     private ArrayList<String> favWallpapers;
 
@@ -93,7 +93,7 @@ public class Supplier extends Application implements GoogleApiClient.ConnectionC
         //yes, this is thread-safe
         //no, it is not needed for the current setup since all the resources are in res/values/strings.xml
 
-        wallpapers = new ArrayList<>();
+        articles = new ArrayList<>();
 
         try {
             Document document = ElementUtils.getDocument(new URL(url));
@@ -103,8 +103,8 @@ public class Supplier extends Application implements GoogleApiClient.ConnectionC
 
             Elements elements = document.select("item");
             for (Element element : elements) {
-                WallData data = new WallData(ElementUtils.getName(element), ElementUtils.getDescription(element), ElementUtils.getDate(element), ElementUtils.getLink(element), ElementUtils.getComments(element), ElementUtils.getImages(element), ElementUtils.getCategories(element), author.name, author.id);
-                wallpapers.add(data);
+                ArticleData data = new ArticleData(ElementUtils.getName(element), ElementUtils.getDescription(element), ElementUtils.getDate(element), ElementUtils.getLink(element), ElementUtils.getComments(element), ElementUtils.getImages(element), ElementUtils.getCategories(element), author.name, author.id);
+                articles.add(data);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -126,16 +126,16 @@ public class Supplier extends Application implements GoogleApiClient.ConnectionC
         return author;
     }
 
-    //get a list of the different wallpapers
-    public ArrayList<WallData> getWallpapers() {
-        return new ArrayList<>(wallpapers);
+    //get a list of the different articles
+    public ArrayList<ArticleData> getArticles() {
+        return new ArrayList<>(articles);
     }
 
-    public void getWallpapers(final AsyncListener<ArrayList<WallData>> listener) {
+    public void getArticles(final AsyncListener<ArrayList<ArticleData>> listener) {
         new Thread() {
             @Override
             public void run() {
-                final ArrayList<WallData> walls = new ArrayList<>();
+                final ArrayList<ArticleData> walls = new ArrayList<>();
 
                 Document document;
                 try {
@@ -163,11 +163,11 @@ public class Supplier extends Application implements GoogleApiClient.ConnectionC
 
                 Elements elements = document.select("item");
                 for (Element element : elements) {
-                    WallData data = new WallData(ElementUtils.getName(element), ElementUtils.getDescription(element), ElementUtils.getDate(element), ElementUtils.getLink(element), ElementUtils.getComments(element), ElementUtils.getImages(element), ElementUtils.getCategories(element), author.name, 0);
+                    ArticleData data = new ArticleData(ElementUtils.getName(element), ElementUtils.getDescription(element), ElementUtils.getDate(element), ElementUtils.getLink(element), ElementUtils.getComments(element), ElementUtils.getImages(element), ElementUtils.getCategories(element), author.name, 0);
                     walls.add(data);
                 }
 
-                wallpapers.addAll(walls);
+                articles.addAll(walls);
                 pages++;
 
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -180,7 +180,7 @@ public class Supplier extends Application implements GoogleApiClient.ConnectionC
         }.start();
     }
 
-    public void getFullContent(final WallData data, final AsyncListener<String> listener) {
+    public void getFullContent(final ArticleData data, final AsyncListener<String> listener) {
         new Thread() {
             @Override
             public void run() {
@@ -227,16 +227,16 @@ public class Supplier extends Application implements GoogleApiClient.ConnectionC
         }.start();
     }
 
-    public ArrayList<WallData> getFavoriteWallpapers() {
-        ArrayList<WallData> walls = new ArrayList<>();
+    public ArrayList<ArticleData> getFavoriteArticles() {
+        ArrayList<ArticleData> walls = new ArrayList<>();
         for (String string : favWallpapers) {
-            walls.add(gson.fromJson(string, WallData.class));
+            walls.add(gson.fromJson(string, ArticleData.class));
         }
 
         return walls;
     }
 
-    public boolean setFavoriteWallpapers() {
+    public boolean setFavoriteArticles() {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt("favorites-size", favWallpapers.size());
 
@@ -247,22 +247,22 @@ public class Supplier extends Application implements GoogleApiClient.ConnectionC
         return editor.commit();
     }
 
-    public boolean isFavorite(WallData data) {
+    public boolean isFavorite(ArticleData data) {
         return favWallpapers.contains(gson.toJson(data));
     }
 
-    public boolean favoriteWallpaper(WallData data) {
+    public boolean favoriteArticle(ArticleData data) {
         if (isFavorite(data)) return false;
 
         favWallpapers.add(gson.toJson(data));
-        return setFavoriteWallpapers();
+        return setFavoriteArticles();
     }
 
-    public boolean unfavoriteWallpaper(WallData data) {
+    public boolean unfavoriteArticle(ArticleData data) {
         if (!isFavorite(data)) return false;
 
         favWallpapers.remove(favWallpapers.indexOf(gson.toJson(data)));
-        return setFavoriteWallpapers();
+        return setFavoriteArticles();
     }
 
     public void downloadWallpaper(Context context, String name, String url) {

@@ -22,7 +22,7 @@ import android.view.View;
 import james.apreader.R;
 import james.apreader.adapters.ImagePagerAdapter;
 import james.apreader.common.Supplier;
-import james.apreader.common.data.WallData;
+import james.apreader.common.data.ArticleData;
 import james.apreader.views.PageIndicator;
 
 public class ImageDialog extends AppCompatDialog {
@@ -32,7 +32,7 @@ public class ImageDialog extends AppCompatDialog {
     private DownloadReceiver downloadReceiver;
 
     private Integer image;
-    private WallData data;
+    private ArticleData data;
 
     private Toolbar toolbar;
     private ViewPager viewPager;
@@ -101,7 +101,7 @@ public class ImageDialog extends AppCompatDialog {
         return this;
     }
 
-    public ImageDialog setWallpaper(WallData data) {
+    public ImageDialog setWallpaper(ArticleData data) {
         this.data = data;
         if (toolbar != null) toolbar.setTitle(data.name);
         return this;

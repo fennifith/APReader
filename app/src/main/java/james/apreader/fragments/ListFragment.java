@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import james.apreader.R;
 import james.apreader.adapters.ListAdapter;
 import james.apreader.common.Supplier;
+import james.apreader.common.data.ArticleData;
 import james.apreader.common.data.AuthorData;
-import james.apreader.common.data.WallData;
 
 public class ListFragment extends Fragment {
 
@@ -31,7 +31,7 @@ public class ListFragment extends Fragment {
         AuthorData author = supplier.getAuthor();
         if (author == null) return null;
 
-        ArrayList<WallData> walls = supplier.getWallpapers();
+        ArrayList<ArticleData> walls = supplier.getArticles();
 
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);

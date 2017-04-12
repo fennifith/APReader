@@ -11,9 +11,9 @@ import com.google.gson.JsonSyntaxException;
 
 import java.nio.charset.Charset;
 
-import james.apreader.activities.WallActivity;
+import james.apreader.activities.ArticleActivity;
 import james.apreader.common.Supplier;
-import james.apreader.common.data.WallData;
+import james.apreader.common.data.ArticleData;
 
 public class WearListenerService extends WearableListenerService {
 
@@ -28,8 +28,8 @@ public class WearListenerService extends WearableListenerService {
                 startActivity(intent);
             } else {
                 try {
-                    Intent intent = new Intent(this, WallActivity.class);
-                    intent.putExtra(WallActivity.EXTRA_ARTICLE, new Gson().fromJson(data, WallData.class));
+                    Intent intent = new Intent(this, ArticleActivity.class);
+                    intent.putExtra(ArticleActivity.EXTRA_ARTICLE, new Gson().fromJson(data, ArticleData.class));
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 } catch (JsonSyntaxException e) {

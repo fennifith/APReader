@@ -12,14 +12,14 @@ import java.util.List;
 import james.apreader.R;
 import james.apreader.adapters.ArticleAdapter;
 import james.apreader.common.Supplier;
-import james.apreader.common.data.WallData;
+import james.apreader.common.data.ArticleData;
 
 public class MainActivity extends Activity {
 
     private Supplier supplier;
 
     private WearableRecyclerView recyclerView;
-    private List<WallData> articles;
+    private List<ArticleData> articles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +29,8 @@ public class MainActivity extends Activity {
 
         recyclerView = (WearableRecyclerView) findViewById(R.id.recycler);
 
-        articles = supplier.getFavoriteWallpapers();
-        articles.addAll(supplier.getWallpapers());
+        articles = supplier.getFavoriteArticles();
+        articles.addAll(supplier.getArticles());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getResources().getConfiguration().isScreenRound())
             recyclerView.setLayoutManager(new CurvedChildLayoutManager(this));
@@ -46,8 +46,8 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         if (recyclerView != null) {
-            List<WallData> articles = supplier.getFavoriteWallpapers();
-            articles.addAll(supplier.getWallpapers());
+            List<ArticleData> articles = supplier.getFavoriteArticles();
+            articles.addAll(supplier.getArticles());
 
             if (this.articles.size() != articles.size())
                 recyclerView.setAdapter(new ArticleAdapter(this, articles, 0));

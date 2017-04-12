@@ -17,7 +17,7 @@ import java.util.Comparator;
 import james.apreader.R;
 import james.apreader.adapters.ListAdapter;
 import james.apreader.common.Supplier;
-import james.apreader.common.data.WallData;
+import james.apreader.common.data.ArticleData;
 
 public class RandomFragment extends Fragment {
 
@@ -31,10 +31,10 @@ public class RandomFragment extends Fragment {
 
         recycler.setLayoutManager(new GridLayoutManager(getContext(), 1));
 
-        ArrayList<WallData> walls = ((Supplier) getContext().getApplicationContext()).getWallpapers();
-        Collections.sort(walls, new Comparator<WallData>() {
+        ArrayList<ArticleData> walls = ((Supplier) getContext().getApplicationContext()).getArticles();
+        Collections.sort(walls, new Comparator<ArticleData>() {
             @Override
-            public int compare(WallData first, WallData second) {
+            public int compare(ArticleData first, ArticleData second) {
                 //it's called RandomFragment.java but it's not random?
                 //whaaaaaaaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAAAT
                 return first.name.compareToIgnoreCase(second.name);

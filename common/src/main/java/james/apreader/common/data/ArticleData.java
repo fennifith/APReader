@@ -5,13 +5,13 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-public class WallData implements Parcelable {
+public class ArticleData implements Parcelable {
 
     public String name, desc, date, url, comments, authorName;
     public int authorId;
     public ArrayList<String> images, categories;
 
-    public WallData(String name, String desc, String date, String url, String comments, ArrayList<String> images, ArrayList<String> categories, String authorName, int authorId) {
+    public ArticleData(String name, String desc, String date, String url, String comments, ArrayList<String> images, ArrayList<String> categories, String authorName, int authorId) {
         this.name = name;
         this.desc = desc;
         this.date = date;
@@ -23,7 +23,7 @@ public class WallData implements Parcelable {
         this.authorId = authorId;
     }
 
-    protected WallData(Parcel in) {
+    protected ArticleData(Parcel in) {
         name = in.readString();
         desc = in.readString();
         date = in.readString();
@@ -37,15 +37,15 @@ public class WallData implements Parcelable {
         authorId = in.readInt();
     }
 
-    public static final Creator<WallData> CREATOR = new Creator<WallData>() {
+    public static final Creator<ArticleData> CREATOR = new Creator<ArticleData>() {
         @Override
-        public WallData createFromParcel(Parcel in) {
-            return new WallData(in);
+        public ArticleData createFromParcel(Parcel in) {
+            return new ArticleData(in);
         }
 
         @Override
-        public WallData[] newArray(int size) {
-            return new WallData[size];
+        public ArticleData[] newArray(int size) {
+            return new ArticleData[size];
         }
     };
 

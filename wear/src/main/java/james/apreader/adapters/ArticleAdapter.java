@@ -17,17 +17,17 @@ import java.util.List;
 import james.apreader.R;
 import james.apreader.activities.ArticleActivity;
 import james.apreader.common.Supplier;
-import james.apreader.common.data.WallData;
+import james.apreader.common.data.ArticleData;
 
 public class ArticleAdapter extends WearableRecyclerView.Adapter<ArticleAdapter.ViewHolder> {
 
     private Context context;
     private Supplier supplier;
-    private List<WallData> articles;
+    private List<ArticleData> articles;
     private Integer artistId;
     private Configuration configuration;
 
-    public ArticleAdapter(Context context, List<WallData> articles, int artistId) {
+    public ArticleAdapter(Context context, List<ArticleData> articles, int artistId) {
         this.context = context;
         supplier = (Supplier) context.getApplicationContext();
         this.articles = articles;
@@ -52,7 +52,7 @@ public class ArticleAdapter extends WearableRecyclerView.Adapter<ArticleAdapter.
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         if (getItemViewType(position) == 0) {
-            WallData article = articles.get(position);
+            ArticleData article = articles.get(position);
             holder.title.setText(article.name);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !configuration.isScreenRound()) {
@@ -75,9 +75,9 @@ public class ArticleAdapter extends WearableRecyclerView.Adapter<ArticleAdapter.
             holder.itemView.animate().alpha(1).start();
         } else {
             if (artistId != null) {
-                supplier.getWallpapers(new Supplier.AsyncListener<ArrayList<WallData>>() {
+                supplier.getArticles(new Supplier.AsyncListener<ArrayList<ArticleData>>() {
                     @Override
-                    public void onTaskComplete(ArrayList<WallData> value) {
+                    public void onTaskComplete(ArrayList<ArticleData> value) {
                         articles.addAll(value);
                         notifyDataSetChanged();
                     }

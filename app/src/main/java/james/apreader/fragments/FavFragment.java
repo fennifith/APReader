@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import james.apreader.R;
 import james.apreader.adapters.ListAdapter;
 import james.apreader.common.Supplier;
-import james.apreader.common.data.WallData;
+import james.apreader.common.data.ArticleData;
 
 public class FavFragment extends Fragment {
 
@@ -24,7 +24,7 @@ public class FavFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_fav, container, false);
         RecyclerView recycler = (RecyclerView) v.findViewById(R.id.recycler);
 
-        ArrayList<WallData> walls = ((Supplier) getContext().getApplicationContext()).getFavoriteWallpapers();
+        ArrayList<ArticleData> walls = ((Supplier) getContext().getApplicationContext()).getFavoriteArticles();
 
         recycler.setLayoutManager(new GridLayoutManager(getContext(), 1));
         ListAdapter adapter = new ListAdapter(getActivity(), walls);

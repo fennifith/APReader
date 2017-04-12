@@ -21,17 +21,17 @@ import com.google.android.flexbox.FlexboxLayout;
 
 import james.apreader.R;
 import james.apreader.common.Supplier;
-import james.apreader.common.data.WallData;
+import james.apreader.common.data.ArticleData;
 import james.apreader.common.utils.ImageUtils;
 import james.apreader.utils.CustomTabsBuilder;
 import james.apreader.utils.CustomTabsMovementMethod;
 
 
-public class WallActivity extends AppCompatActivity {
+public class ArticleActivity extends AppCompatActivity {
 
-    public static final String EXTRA_ARTICLE = "wall";
+    public static final String EXTRA_ARTICLE = "james.apreader.EXTRA_ARTICLE";
 
-    WallData data;
+    ArticleData data;
     Supplier supplier;
 
     Toolbar toolbar;
@@ -103,14 +103,14 @@ public class WallActivity extends AppCompatActivity {
         findViewById(R.id.launchPost).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CustomTabsBuilder.open(WallActivity.this, Uri.parse(data.url));
+                CustomTabsBuilder.open(ArticleActivity.this, Uri.parse(data.url));
             }
         });
 
         findViewById(R.id.launchAuthor).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CustomTabsBuilder.open(WallActivity.this, Uri.parse(supplier.getAuthor().url));
+                CustomTabsBuilder.open(ArticleActivity.this, Uri.parse(supplier.getAuthor().url));
             }
         });
     }
@@ -130,10 +130,10 @@ public class WallActivity extends AppCompatActivity {
                 break;
             case R.id.action_fav:
                 if (supplier.isFavorite(data)) {
-                    if (!supplier.unfavoriteWallpaper(data))
+                    if (!supplier.unfavoriteArticle(data))
                         Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
                 } else {
-                    if (!supplier.favoriteWallpaper(data))
+                    if (!supplier.favoriteArticle(data))
                         Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
                 }
 

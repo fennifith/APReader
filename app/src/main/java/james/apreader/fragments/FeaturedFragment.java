@@ -21,7 +21,7 @@ import java.util.Locale;
 import james.apreader.R;
 import james.apreader.adapters.ListAdapter;
 import james.apreader.common.Supplier;
-import james.apreader.common.data.WallData;
+import james.apreader.common.data.ArticleData;
 
 public class FeaturedFragment extends Fragment {
 
@@ -32,11 +32,11 @@ public class FeaturedFragment extends Fragment {
 
         recycler.setLayoutManager(new GridLayoutManager(getContext(), 1));
 
-        ArrayList<WallData> walls = ((Supplier) getContext().getApplicationContext()).getWallpapers();
+        ArrayList<ArticleData> walls = ((Supplier) getContext().getApplicationContext()).getArticles();
 
-        Collections.sort(walls, new Comparator<WallData>() {
+        Collections.sort(walls, new Comparator<ArticleData>() {
             @Override
-            public int compare(WallData lhs, WallData rhs) {
+            public int compare(ArticleData lhs, ArticleData rhs) {
                 DateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
                 try {
                     Date lhd = format.parse(lhs.date), rhd = format.parse(rhs.date);
