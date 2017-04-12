@@ -2,7 +2,6 @@ package james.apreader.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -17,6 +16,7 @@ import java.util.ArrayList;
 
 import james.apreader.R;
 import james.apreader.common.utils.FontUtils;
+import james.apreader.util.CustomTabsBuilder;
 
 public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.ViewHolder> {
 
@@ -112,7 +112,7 @@ public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.ViewHolder> 
                 holder.v.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                        CustomTabsBuilder.open(getContext(), Uri.parse(url));
                     }
                 });
             } else holder.v.setClickable(false);
@@ -155,7 +155,7 @@ public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.ViewHolder> 
                 card.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(primary)));
+                        CustomTabsBuilder.open(getContext(), Uri.parse(primary));
                     }
                 });
             } else holder.v.findViewById(R.id.card).setClickable(false);

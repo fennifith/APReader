@@ -1,6 +1,5 @@
 package james.apreader.activities;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +15,7 @@ import james.apreader.R;
 import james.apreader.adapters.AboutAdapter;
 import james.apreader.common.Supplier;
 import james.apreader.common.data.AuthorData;
+import james.apreader.util.CustomTabsBuilder;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -76,7 +76,7 @@ public class AboutActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.action_github:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/TheAndroidMaster/APReader")));
+                CustomTabsBuilder.open(this, Uri.parse("https://github.com/TheAndroidMaster/APReader"));
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -1,6 +1,5 @@
 package james.apreader.activities;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
@@ -10,7 +9,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +24,8 @@ import james.apreader.common.Supplier;
 import james.apreader.common.data.WallData;
 import james.apreader.common.utils.FontUtils;
 import james.apreader.common.utils.ImageUtils;
+import james.apreader.util.CustomTabsBuilder;
+import james.apreader.utils.CustomTabsMovementMethod;
 
 
 public class WallActivity extends AppCompatActivity {
@@ -87,7 +87,7 @@ public class WallActivity extends AppCompatActivity {
 
         date.setText(data.date);
         desc.setText(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? Html.fromHtml(data.desc, 0) : Html.fromHtml(data.desc));
-        desc.setMovementMethod(new LinkMovementMethod());
+        desc.setMovementMethod(new CustomTabsMovementMethod(this));
 
         supplier.getFullContent(data, new Supplier.AsyncListener<String>() {
             @Override
@@ -108,14 +108,14 @@ public class WallActivity extends AppCompatActivity {
         findViewById(R.id.launchPost).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(data.url)));
+                CustomTabsBuilder.open(WallActivity.this, Uri.parse(data.url));
             }
         });
 
         findViewById(R.id.launchAuthor).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(supplier.getAuthor().url)));
+                CustomTabsBuilder.open(WallActivity.this, Uri.parse(supplier.getAuthor().url));
             }
         });
     }
