@@ -5,7 +5,7 @@
     android:background="?attr/selectableItemBackground"
     android:padding="8dp">
 
-    <TextView
+    <james.apreader.common.views.FontedTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/header"
@@ -17,7 +17,7 @@
         android:layout_marginRight="8dp"
         android:textStyle="bold" />
 
-    <TextView
+    <james.apreader.common.views.FontedTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/content"

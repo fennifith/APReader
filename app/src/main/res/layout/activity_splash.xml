@@ -17,7 +17,7 @@
         android:layout_margin="64dp"
         android:gravity="center_horizontal">
 
-        <TextView
+        <james.apreader.common.views.FontedTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fetching_resources"

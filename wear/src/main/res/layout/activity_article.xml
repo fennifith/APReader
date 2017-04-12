@@ -24,7 +24,7 @@
                 android:paddingTop="8dp"
                 app:layout_box="top|bottom">
 
-                <TextView
+                <james.apreader.common.views.FontedTextView
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <TextView
+                <james.apreader.common.views.FontedTextView
                     android:id="@+id/content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                     android:textColor="?android:textColorSecondary"
                     android:textSize="14sp" />
 
-                <TextView
+                <james.apreader.common.views.FontedTextView
                     android:id="@+id/date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                     android:padding="8dp"
                     android:textAlignment="center"
                     android:textColor="?android:textColorTertiary"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:textStyle="italic" />
 
                 <View

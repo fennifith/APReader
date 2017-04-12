@@ -14,7 +14,6 @@ import james.apreader.R;
 import james.apreader.activities.WallActivity;
 import james.apreader.common.Supplier;
 import james.apreader.common.data.WallData;
-import james.apreader.common.utils.FontUtils;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private ArrayList<WallData> walls;
@@ -56,7 +55,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                 WallData article = walls.get(position);
 
                 holder.title.setText(article.name);
-                FontUtils.applyTypeface(holder.title);
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -69,7 +67,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                 });
 
                 holder.content.setText(article.desc.contains(".") ? article.desc.substring(0, article.desc.indexOf(".") + 1) : article.desc);
-                FontUtils.applyTypeface(holder.content);
 
                 if (article.categories.size() > 0) {
                     holder.categories.setVisibility(View.VISIBLE);
@@ -79,7 +76,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                         View v = LayoutInflater.from(activity).inflate(R.layout.layout_category, holder.categories, false);
                         TextView title = (TextView) v.findViewById(R.id.title);
                         title.setText(category.toLowerCase());
-                        FontUtils.applyTypeface(title);
 
                         holder.categories.addView(v);
                     }

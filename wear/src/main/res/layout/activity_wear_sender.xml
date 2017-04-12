@@ -12,7 +12,7 @@
         android:padding="10dp"
         app:layout_box="all">
 
-        <TextView
+        <james.apreader.common.views.FontedTextView
             android:id="@+id/tv_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

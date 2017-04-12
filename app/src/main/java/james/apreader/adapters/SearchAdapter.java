@@ -14,7 +14,6 @@ import james.apreader.R;
 import james.apreader.activities.WallActivity;
 import james.apreader.common.Supplier;
 import james.apreader.common.data.WallData;
-import james.apreader.common.utils.FontUtils;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
 
@@ -54,9 +53,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
         title.setText(walls.get(position).name);
         subtitle.setText(walls.get(position).authorName);
-
-        FontUtils.applyTypeface(title);
-        FontUtils.applyTypeface(subtitle);
 
         holder.clicker.setTag(position);
         holder.clicker.setOnClickListener(new View.OnClickListener() {

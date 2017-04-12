@@ -10,14 +10,14 @@
         android:orientation="vertical"
         android:padding="8dp">
 
-        <TextView
+        <james.apreader.common.views.FontedTextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="?android:textColorPrimary"
             android:textSize="18sp" />
 
-        <TextView
+        <james.apreader.common.views.FontedTextView
             android:id="@+id/subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

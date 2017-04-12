@@ -12,7 +12,7 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <TextView
+        <james.apreader.common.views.FontedTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -22,7 +22,7 @@
             android:textSize="40sp"
             android:layout_margin="8dp" />
 
-        <TextView
+        <james.apreader.common.views.FontedTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

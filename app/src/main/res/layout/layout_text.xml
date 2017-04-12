@@ -6,7 +6,7 @@
     android:id="@+id/card"
     android:background="?attr/selectableItemBackground">
 
-    <TextView
+    <james.apreader.common.views.FontedTextView
         android:id="@+id/header"
         android:text="Name"
         android:layout_width="wrap_content"
@@ -19,7 +19,7 @@
         android:textColor="@color/textColorPrimaryInverse"
         android:textSize="16sp" />
 
-    <TextView
+    <james.apreader.common.views.FontedTextView
         android:id="@+id/content"
         android:text="Description"
         android:layout_width="wrap_content"

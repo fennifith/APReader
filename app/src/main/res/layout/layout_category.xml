@@ -9,7 +9,7 @@
         android:background="@drawable/category"
         android:layout_margin="4dp">
 
-        <TextView
+        <james.apreader.common.views.FontedTextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="12dp"

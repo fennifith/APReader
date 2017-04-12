@@ -22,7 +22,6 @@ import com.google.android.flexbox.FlexboxLayout;
 import james.apreader.R;
 import james.apreader.common.Supplier;
 import james.apreader.common.data.WallData;
-import james.apreader.common.utils.FontUtils;
 import james.apreader.common.utils.ImageUtils;
 import james.apreader.utils.CustomTabsBuilder;
 import james.apreader.utils.CustomTabsMovementMethod;
@@ -65,10 +64,6 @@ public class WallActivity extends AppCompatActivity {
         desc = (TextView) findViewById(R.id.description);
         categories = (FlexboxLayout) findViewById(R.id.categories);
 
-        FontUtils.applyTypeface(date);
-        FontUtils.applyTypeface(auth);
-        FontUtils.applyTypeface(desc);
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -80,9 +75,7 @@ public class WallActivity extends AppCompatActivity {
 
             for (String category : data.categories) {
                 View v = LayoutInflater.from(this).inflate(R.layout.layout_category, null);
-                TextView title = (TextView) v.findViewById(R.id.title);
-                title.setText(category.toLowerCase());
-                FontUtils.applyTypeface(title);
+                ((TextView) v.findViewById(R.id.title)).setText(category.toLowerCase());
                 categories.addView(v);
             }
         }
