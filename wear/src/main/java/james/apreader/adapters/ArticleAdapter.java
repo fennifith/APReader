@@ -54,8 +54,11 @@ public class ArticleAdapter extends WearableRecyclerView.Adapter<ArticleAdapter.
         if (getItemViewType(position) == 0) {
             WallData article = articles.get(position);
             holder.title.setText(article.name);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !configuration.isScreenRound())
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !configuration.isScreenRound()) {
+                holder.subtitle.setVisibility(View.VISIBLE);
                 holder.subtitle.setText(article.desc.contains(".") ? article.desc.substring(0, article.desc.indexOf(".") + 1) : article.desc);
+            } else holder.subtitle.setVisibility(View.GONE);
 
             holder.favorite.setVisibility(supplier.isFavorite(article) ? View.VISIBLE : View.GONE);
 

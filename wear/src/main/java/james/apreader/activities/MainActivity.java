@@ -2,6 +2,7 @@ package james.apreader.activities;
 
 import android.app.Activity;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.wearable.view.CurvedChildLayoutManager;
 import android.support.wearable.view.WearableRecyclerView;
@@ -31,11 +32,25 @@ public class MainActivity extends Activity {
         articles = supplier.getFavoriteWallpapers();
         articles.addAll(supplier.getWallpapers());
 
-        recyclerView.setLayoutManager(new CurvedChildLayoutManager(this));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getResources().getConfiguration().isScreenRound())
+            recyclerView.setLayoutManager(new CurvedChildLayoutManager(this));
+
         recyclerView.setAdapter(new ArticleAdapter(this, articles, 0));
 
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
         recyclerView.setPadding(0, (int) (size.y / 2.5), 0, (int) (size.y / 2.5));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (recyclerView != null) {
+            List<WallData> articles = supplier.getFavoriteWallpapers();
+            articles.addAll(supplier.getWallpapers());
+
+            if (this.articles.size() != articles.size())
+                recyclerView.setAdapter(new ArticleAdapter(this, articles, 0));
+        }
     }
 }

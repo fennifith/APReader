@@ -8,14 +8,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="16dp">
 
         <james.apreader.common.views.FontedTextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="?android:textColorPrimary"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <james.apreader.common.views.FontedTextView
             android:id="@+id/subtitle"
@@ -26,15 +26,15 @@
 
     </LinearLayout>
 
-    <android.support.v7.widget.AppCompatImageView
+    <android.support.wearable.view.CircledImageView
         android:id="@+id/favorite"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|bottom"
+        android:layout_margin="8dp"
         android:alpha=".5"
-        android:tint="@color/colorAccent"
-        android:visibility="gone"
-        app:srcCompat="@drawable/ic_favorite" />
+        android:src="@drawable/ic_favorite"
+        app:circle_color="@color/colorAccent"
+        app:circle_radius="14dp" />
 
 </FrameLayout>
