@@ -1,6 +1,7 @@
 package james.apreader.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import james.apreader.R;
 import james.apreader.common.Supplier;
@@ -101,10 +104,10 @@ public class ArticleActivity extends Activity implements WearableActionDrawer.On
                     menuItem.setIcon(R.drawable.ic_favorite);
                 }
                 break;
-            case R.id.action_view:
-                supplier.sendWearableMessage(article.url);
-                break;
             case R.id.action_phone:
+                Intent intent = new Intent(this, WearSenderActivity.class);
+                intent.putExtra(WearSenderActivity.EXTRA_MESSAGE, new Gson().toJson(article));
+                startActivity(intent);
                 break;
         }
         return false;

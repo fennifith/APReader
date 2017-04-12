@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.wearable.view.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_box="all">
+
+        <TextView
+            android:id="@+id/tv_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="center_horizontal|top"
+            android:paddingBottom="15sp"
+            android:paddingTop="5sp"
+            android:text="@string/prompt_open_phone"
+            android:textSize="18sp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5sp">
+
+            <android.support.wearable.view.CircledImageView
+                android:id="@+id/action_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|bottom"
+                android:src="@drawable/ic_close"
+                app:circle_color="?android:textColorPrimary"
+                app:circle_radius="25dp"
+                app:circle_radius_pressed="20dp" />
+
+            <android.support.wearable.view.CircledImageView
+                android:id="@+id/action_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:src="@drawable/ic_check"
+                app:circle_color="@color/colorAccent"
+                app:circle_radius="25dp"
+                app:circle_radius_pressed="20dp" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</android.support.wearable.view.BoxInsetLayout>

@@ -26,6 +26,10 @@
 
         <activity android:name=".activities.ArticleActivity" />
 
+        <activity android:name=".activities.WearSenderActivity" />
+
+        <activity android:name="android.support.wearable.activity.ConfirmationActivity" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

@@ -30,6 +30,8 @@ import james.apreader.common.utils.ImageUtils;
 
 public class WallActivity extends AppCompatActivity {
 
+    public static final String EXTRA_ARTICLE = "wall";
+
     WallData data;
     Supplier supplier;
 
@@ -53,7 +55,7 @@ public class WallActivity extends AppCompatActivity {
         supplier = (Supplier) getApplicationContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        data = getIntent().getParcelableExtra("wall");
+        data = getIntent().getParcelableExtra(EXTRA_ARTICLE);
         setTitle(data.name);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);

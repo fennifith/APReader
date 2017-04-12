@@ -3,4 +3,5 @@
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
     <string name="action_phone">Open on Phone</string>
+    <string name="prompt_open_phone">Open on the connected phone?</string>
 </resources>

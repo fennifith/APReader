@@ -14,11 +14,11 @@ import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.wearable.MessageApi;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
@@ -74,7 +74,6 @@ public class Supplier extends Application implements GoogleApiClient.ConnectionC
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
-        ;
 
         url = getString(R.string.feed_url);
 
@@ -85,6 +84,8 @@ public class Supplier extends Application implements GoogleApiClient.ConnectionC
             String json = prefs.getString("favorites-" + i, null);
             favWallpapers.add(json);
         }
+
+        apiClient.connect();
     }
 
     public boolean getNetworkResources() {
@@ -283,13 +284,21 @@ public class Supplier extends Application implements GoogleApiClient.ConnectionC
     }
 
     public void sendWearableMessage(String message) {
+        sendWearableMessage(message, null);
+    }
+
+    public void sendWearableMessage(String message, @Nullable final AsyncListener<Status> listener) {
         if (node != null && apiClient != null && apiClient.isConnected()) {
             Wearable.MessageApi.sendMessage(apiClient, node.getId(), WEAR_PATH, message.getBytes()).setResultCallback(
                     new ResultCallback<MessageApi.SendMessageResult>() {
                         @Override
                         public void onResult(@NonNull MessageApi.SendMessageResult sendMessageResult) {
-                            if (!sendMessageResult.getStatus().isSuccess())
-                                Log.e("TAG", "Failed to send message: " + sendMessageResult.getStatus().getStatusCode());
+                            if (listener != null) {
+                                Status status = sendMessageResult.getStatus();
+                                if (status.isSuccess())
+                                    listener.onTaskComplete(status);
+                                else listener.onFailure();
+                            }
                         }
                     }
             );
