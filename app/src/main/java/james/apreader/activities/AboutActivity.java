@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -15,6 +17,7 @@ import james.apreader.R;
 import james.apreader.adapters.AboutAdapter;
 import james.apreader.common.Supplier;
 import james.apreader.common.data.AuthorData;
+import james.apreader.common.utils.FontUtils;
 import james.apreader.utils.CustomTabsBuilder;
 
 public class AboutActivity extends AppCompatActivity {
@@ -33,6 +36,10 @@ public class AboutActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         recycler = (RecyclerView) findViewById(R.id.recycler);
+
+        View title = toolbar.getChildAt(0);
+        if (title != null && title instanceof TextView)
+            FontUtils.applyTypeface((TextView) toolbar.getChildAt(0));
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

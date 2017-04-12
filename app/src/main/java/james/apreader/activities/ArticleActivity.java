@@ -1,11 +1,8 @@
 package james.apreader.activities;
 
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -31,20 +28,13 @@ public class ArticleActivity extends AppCompatActivity {
 
     public static final String EXTRA_ARTICLE = "james.apreader.EXTRA_ARTICLE";
 
-    ArticleData data;
-    Supplier supplier;
+    private Toolbar toolbar;
+    private TextView date, auth, desc;
+    private FlexboxLayout categories;
+    private ProgressBar progressBar;
 
-    Toolbar toolbar;
-
-    Handler handler;
-    Runnable runnable;
-
-    TextView date, auth, desc;
-    FlexboxLayout categories;
-
-    ProgressBar progressBar;
-
-    SharedPreferences prefs;
+    private Supplier supplier;
+    private ArticleData data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +42,6 @@ public class ArticleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wallpaper);
 
         supplier = (Supplier) getApplicationContext();
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         data = getIntent().getParcelableExtra(EXTRA_ARTICLE);
         setTitle(data.name);
@@ -66,9 +55,6 @@ public class ArticleActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        handler = new Handler();
-        handler.postDelayed(runnable, 5000);
 
         if (data.categories.size() > 0) {
             categories.setVisibility(View.VISIBLE);

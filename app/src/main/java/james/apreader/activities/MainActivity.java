@@ -3,6 +3,7 @@ package james.apreader.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,8 +13,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import james.apreader.R;
+import james.apreader.common.utils.FontUtils;
 import james.apreader.fragments.FavFragment;
 import james.apreader.fragments.ListFragment;
 
@@ -33,7 +36,28 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         fragmentView = findViewById(R.id.fragment);
         navigationView = (BottomNavigationView) findViewById(R.id.navigation);
 
+        View title = toolbar.getChildAt(0);
+        if (title != null && title instanceof TextView)
+            FontUtils.applyTypeface((TextView) toolbar.getChildAt(0));
+
         setSupportActionBar(toolbar);
+
+        for (int i = 0; i < navigationView.getChildCount(); i++) {
+            View child = navigationView.getChildAt(i);
+            if (child instanceof BottomNavigationMenuView) {
+                BottomNavigationMenuView menuView = (BottomNavigationMenuView) child;
+                for (int i2 = 0; i2 < menuView.getChildCount(); i2++) {
+                    View item = menuView.getChildAt(i2);
+                    View smallTextView = item.findViewById(android.support.design.R.id.smallLabel);
+                    if (smallTextView != null && smallTextView instanceof TextView)
+                        FontUtils.applyTypeface((TextView) smallTextView);
+
+                    View largeTextView = item.findViewById(android.support.design.R.id.largeLabel);
+                    if (largeTextView != null && largeTextView instanceof TextView)
+                        FontUtils.applyTypeface((TextView) largeTextView);
+                }
+            }
+        }
 
         navigationView.setOnNavigationItemSelectedListener(this);
 
