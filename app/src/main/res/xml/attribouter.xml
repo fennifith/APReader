@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<about>
+    <appInfo
+        description="A small app that displays Android Police articles without waiting for the website to load."
+        repo="TheAndroidMaster/APReader"
+        websiteUrl="^https://jfenn.me/about/?APReader">
+        <link
+            id="playStore"
+            name="Report an Issue"
+            url="https://github.com/TheAndroidMaster/APReader/issues/new"
+            icon="@drawable/ic_attribouter_github" />
+    </appInfo>
+    <text text="@string/me" />
+    <text text="@string/alex" />
+    <contributors repo="TheAndroidMaster/APReader">
+        <contributor
+            login="TheAndroidMaster"
+            position="1"
+            task="^Creator" />
+    </contributors>
+    <licenses>
+        <project
+            description="The flexible, easy to use, all in one drawer library for your Android project."
+            license="apache-2.0"
+            licenseName="Apache License 2.0"
+            repo="mikepenz/MaterialDrawer"
+            title="Material Drawer"
+            website="https://mikepenz.github.io/MaterialDrawer/" />
+        <project
+            description="^A Java library for working with real-world HTML that provides a convenient API for extracting and manipulating data."
+            license="mit"
+            licenseName="MIT License"
+            repo="jhy/jsoup"
+            title="JSoup"
+            website="https://jsoup.org/" />
+        <project repo="bumptech/glide" />
+        <project repo="google/gson" />
+        <project repo="google/flexbox-layout" />
+        <project repo="TheAndroidMaster/Attribouter" />
+    </licenses>
+</about>

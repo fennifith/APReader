@@ -19,6 +19,7 @@ import james.apreader.R;
 import james.apreader.common.utils.FontUtils;
 import james.apreader.fragments.FavFragment;
 import james.apreader.fragments.ListFragment;
+import me.jfenn.attribouter.Attribouter;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -102,7 +103,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
                 break;
             case R.id.action_about:
-                startActivity(new Intent(MainActivity.this, AboutActivity.class));
+                int token = getResources().getIdentifier("james.apreader:string/apiToken", null, null);
+                Attribouter attribouter = Attribouter.from(this);
+                if (token != -1)
+                    attribouter = attribouter.withGitHubToken(getString(token));
+
+                attribouter.show();
                 break;
         }
         return super.onOptionsItemSelected(item);

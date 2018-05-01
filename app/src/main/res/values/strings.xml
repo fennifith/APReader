@@ -34,8 +34,8 @@
 
     <string name="contributors">Sources:</string>
 
-    <string name="me">Disclaimer: This app is not an official Android Police client. It was made by a follower of Android Police for faster access to their articles than viewing the website.</string>
-    <string name="alex">Special thanks to Alexandre Piveteau for providing the code used for the page indicators.</string>
+    <string name="me"><![CDATA[<b>Disclaimer: This app is not an official Android Police client.</b> <br/>It was made by a follower of <a href="https://androidpolice.com/">Android Police</a> for faster access to their articles than viewing the website.]]></string>
+    <string name="alex"><![CDATA[Special thanks to <a href="https://github.com/alexandrepiveteau">Alexandre Piveteau</a> for providing the code used for the page indicators.]]></string>
 
     <!-- Don't edit these, credit is needed for the libraries -->
     <string name="libraries">Implemented Libraries:</string>

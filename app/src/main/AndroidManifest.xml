@@ -49,15 +49,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name="james.apreader.activities.AboutActivity"
-            android:label="@string/title_about"
-            android:parentActivityName="james.apreader.activities.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="james.apreader.activities.MainActivity" />
-        </activity>
-
         <service android:name=".services.WearListenerService">
             <intent-filter>
                 <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
