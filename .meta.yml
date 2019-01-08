@@ -1,0 +1,6 @@
+icon: "app/src/main/ic_launcher-web.png"
+screenshots:
+  - ".github/images/main.png"
+  - ".github/images/article.png"
+  - ".github/images/wear-main.png"
+  - ".github/images/wear-article.png"
